@@ -57,7 +57,7 @@ public class Conexion {
     /**
      * metodo encargado de desconectar de la base de datos
      */
-    public void disconnectDB() {
+    public static void disconnectDB() {
         conexion = null;
         if (conexion == null) {
             
