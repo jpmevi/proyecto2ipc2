@@ -5,11 +5,15 @@
  */
 package Entity;
 
+import DataBase.Conexion;
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author potz
  */
 public class Orden_Examen {
+
     private String descripcion;
     private String PACIENTE_codigo;
     private String MEDICO_codigo;
@@ -20,6 +24,7 @@ public class Orden_Examen {
         this.PACIENTE_codigo = PACIENTE_codigo;
         this.MEDICO_codigo = MEDICO_codigo;
         this.EXAMEN_codigo = EXAMEN_codigo;
+        insertarOrden_Examen();
     }
 
     public String getDescripcion() {
@@ -53,6 +58,31 @@ public class Orden_Examen {
     public void setEXAMEN_codigo(String EXAMEN_codigo) {
         this.EXAMEN_codigo = EXAMEN_codigo;
     }
-    
-    
+
+    public void insertarOrden_Examen() {
+
+        String query = "INSERT INTO ORDEN_EXAMEN ("
+                + " codigo,"
+                + " descripcion,"
+                + " PACIENTE_codigo,"
+                + " MEDICO_codigo,"
+                + " EXAMEN_codigo) VALUES ("
+                + " ?, ?,?,?,?)";
+        try {
+            // set all the preparedstatement parameters
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            st.setInt(1, 0);
+            st.setString(2, getDescripcion());
+            st.setString(3, getPACIENTE_codigo());
+            st.setString(4, getMEDICO_codigo());
+            st.setString(5, getEXAMEN_codigo());
+            // execute the preparedstatement insert
+            st.execute();
+            st.close();
+        } catch (Exception e) {
+            // log exception
+        }
+
+    }
+
 }

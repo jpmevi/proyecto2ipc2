@@ -5,7 +5,11 @@
  */
 package Entity;
 
+import DataBase.Conexion;
 import java.sql.Blob;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.Time;
 
 /**
  *
@@ -18,6 +22,7 @@ public class Archivo_Informe {
     public Archivo_Informe(Blob archivo, String INFORME_EXAMEN_codigo) {
         this.archivo = archivo;
         this.INFORME_EXAMEN_codigo = INFORME_EXAMEN_codigo;
+        insertarArchivo_Informe();
     }
 
     public Blob getArchivo() {
@@ -34,6 +39,26 @@ public class Archivo_Informe {
 
     public void setINFORME_EXAMEN_codigo(String INFORME_EXAMEN_codigo) {
         this.INFORME_EXAMEN_codigo = INFORME_EXAMEN_codigo;
+    }
+    
+    public void insertarArchivo_Informe() {
+
+        String query = "INSERT INTO ARCHIVO_INFORME ("
+                + " archivo,"
+                + " INFORME_EXAMEN_codigo) VALUES ("
+                + " ?, ?)";
+        try {
+            // set all the preparedstatement parameters
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            st.setBlob(1, getArchivo());
+            st.setString(2, getINFORME_EXAMEN_codigo());
+            // execute the preparedstatement insert
+            st.execute();
+            st.close();
+        } catch (Exception e) {
+            // log exception
+        }
+
     }
     
     

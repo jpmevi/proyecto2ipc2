@@ -5,7 +5,11 @@
  */
 package Entity;
 
+import DataBase.Conexion;
 import java.sql.Blob;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -14,6 +18,7 @@ import java.time.LocalTime;
  * @author potz
  */
 public class Cita_Examen {
+
     private LocalDate fecha;
     private LocalTime hora;
     private Blob orden_medico;
@@ -28,6 +33,7 @@ public class Cita_Examen {
         this.PACIENTE_codigo = PACIENTE_codigo;
         this.EXAMEN_codigo = EXAMEN_codigo;
         this.LABORATORISTA_codigo = LABORATORISTA_codigo;
+        insertarCita_Examen();
     }
 
     public LocalDate getFecha() {
@@ -77,6 +83,36 @@ public class Cita_Examen {
     public void setLABORATORISTA_codigo(String LABORATORISTA_codigo) {
         this.LABORATORISTA_codigo = LABORATORISTA_codigo;
     }
-    
-    
+
+    public void insertarCita_Examen() {
+
+        String query = "INSERT INTO CITA_EXAMEN ("
+                + " codigo,"
+                + " fecha,"
+                + " hora,"
+                + " orden_medico,"
+                + " PACIENTE_codigo,"
+                + " EXAMEN_codigo,"
+                + " LABORATORISTA_codigo) VALUES ("
+                + " ? , ? , ?, ?, ?, ?, ?)";
+        try {
+            // set all the preparedstatement parameters
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            st.setInt(1, 0);
+            st.setDate(2, Date.valueOf(getFecha()));
+            st.setTime(3, Time.valueOf(getHora()));
+            st.setBlob(4, getOrden_medico());
+            st.setString(5, getPACIENTE_codigo());
+            st.setString(6, getEXAMEN_codigo());
+            st.setString(7, getLABORATORISTA_codigo());
+
+            // execute the preparedstatement insert
+            st.execute();
+            st.close();
+        } catch (Exception e) {
+            // log exception
+        }
+
+    }
+
 }

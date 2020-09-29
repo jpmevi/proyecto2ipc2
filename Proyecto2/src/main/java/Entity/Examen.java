@@ -5,6 +5,9 @@
  */
 package Entity;
 
+import DataBase.Conexion;
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author potz
@@ -16,16 +19,15 @@ public class Examen {
     private boolean orden;
     private double costo;
     private String tipo_archivo;
-    private String LABORATORISTA_codigo;
 
-    public Examen(String codigo, String nombre, String descripcion, boolean orden, double costo, String tipo_archivo, String LABORATORISTA_codigo) {
+    public Examen(String codigo, String nombre, String descripcion, boolean orden, double costo, String tipo_archivo) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.orden = orden;
         this.costo = costo;
         this.tipo_archivo = tipo_archivo;
-        this.LABORATORISTA_codigo = LABORATORISTA_codigo;
+        insertarExamen();
     }
 
     public String getCodigo() {
@@ -76,13 +78,36 @@ public class Examen {
         this.tipo_archivo = tipo_archivo;
     }
 
-    public String getLABORATORISTA_codigo() {
-        return LABORATORISTA_codigo;
-    }
 
-    public void setLABORATORISTA_codigo(String LABORATORISTA_codigo) {
-        this.LABORATORISTA_codigo = LABORATORISTA_codigo;
-    }
     
+    
+    public void insertarExamen() {
+
+        String query = "INSERT INTO EXAMEN ("
+                + " codigo,"
+                + " nombre,"
+                + " descripcion,"
+                + " orden,"
+                + " costo,"
+                + " tipo_archivo) VALUES ("
+                + " ? , ? , ?, ?, ?, ?)";
+        try {
+            // set all the preparedstatement parameters
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            st.setString(1, getCodigo());
+            st.setString(2, getNombre());
+            st.setString(3, getDescripcion());
+            st.setInt(4, 0);
+            st.setDouble(5, getCosto());
+            st.setString(6, getTipo_archivo());
+
+            // execute the preparedstatement insert
+            st.execute();
+            st.close();
+        } catch (Exception e) {
+            // log exception
+        }
+
+    }
     
 }

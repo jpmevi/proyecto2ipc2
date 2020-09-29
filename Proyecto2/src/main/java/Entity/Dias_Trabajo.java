@@ -5,6 +5,9 @@
  */
 package Entity;
 
+import DataBase.Conexion;
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author potz
@@ -16,6 +19,7 @@ public class Dias_Trabajo {
     public Dias_Trabajo(String dia, String LABORATORISTA_codigo) {
         this.dia = dia;
         this.LABORATORISTA_codigo = LABORATORISTA_codigo;
+        insertarDias_Trabajo();
     }
 
     public String getDia() {
@@ -34,5 +38,23 @@ public class Dias_Trabajo {
         this.LABORATORISTA_codigo = LABORATORISTA_codigo;
     }
     
-    
+    public void insertarDias_Trabajo() {
+
+        String query = "INSERT INTO DIAS_TRABAJO ("
+                + " dia,"
+                + " LABORATORISTA_codigo) VALUES ("
+                + " ?, ?)";
+        try {
+            // set all the preparedstatement parameters
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            st.setString(1, getDia());
+            st.setString(2, getLABORATORISTA_codigo());
+            // execute the preparedstatement insert
+            st.execute();
+            st.close();
+        } catch (Exception e) {
+            // log exception
+        }
+
+    }
 }

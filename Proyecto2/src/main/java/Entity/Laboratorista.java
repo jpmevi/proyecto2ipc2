@@ -5,6 +5,10 @@
  */
 package Entity;
 
+import DataBase.Conexion;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.Time;
 import java.time.LocalDate;
 
 /**
@@ -20,8 +24,9 @@ public class Laboratorista {
     private String correo;
     private LocalDate fecha_inicio;
     private String password;
+    private String EXAMEN_codigo;
 
-    public Laboratorista(String codigo, String nombre, String registro, String dpi, String telefono, String correo, LocalDate fecha_inicio, String password) {
+    public Laboratorista(String codigo, String nombre, String registro, String dpi, String telefono, String correo, LocalDate fecha_inicio, String password, String EXAMEN_codigo) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.registro = registro;
@@ -30,6 +35,16 @@ public class Laboratorista {
         this.correo = correo;
         this.fecha_inicio = fecha_inicio;
         this.password = password;
+        this.EXAMEN_codigo=EXAMEN_codigo;
+        insertarLaboratorista();
+    }
+
+    public String getEXAMEN_codigo() {
+        return EXAMEN_codigo;
+    }
+
+    public void setEXAMEN_codigo(String EXAMEN_codigo) {
+        this.EXAMEN_codigo = EXAMEN_codigo;
     }
 
     public String getCodigo() {
@@ -96,5 +111,40 @@ public class Laboratorista {
         this.password = password;
     }
     
+    
+    public void insertarLaboratorista()  {
+
+        String query = "INSERT INTO LABORATORISTA ("
+                + " codigo,"
+                + " nombre,"
+                + " registro,"
+                + " dpi,"
+                + " telefono,"
+                + " correo,"
+                + " fecha_inicio,"
+                + " password,"
+                + " EXAMEN_codigo) VALUES ("
+                + " ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            // set all the preparedstatement parameters
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            st.setString(1, getCodigo());
+            st.setString(2, getNombre());
+            st.setString(3, getRegistro());
+            st.setString(4, getDpi());
+            st.setString(5, getTelefono());
+            st.setString(6, getCorreo());
+            st.setDate(7, Date.valueOf(getFecha_inicio()));
+            st.setString(8, getPassword());
+            st.setString(9, getEXAMEN_codigo());
+
+            // execute the preparedstatement insert
+            st.execute();
+            st.close();
+        } catch (Exception e) {
+            // log exception
+        }
+
+    }
     
 }

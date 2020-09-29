@@ -5,6 +5,9 @@
  */
 package Entity;
 
+import DataBase.Conexion;
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author potz
@@ -16,6 +19,8 @@ public class Consulta {
     public Consulta(Double costo, String ESPECIALIDAD_nombre) {
         this.costo = costo;
         this.ESPECIALIDAD_nombre = ESPECIALIDAD_nombre;
+        
+        insertarConsulta();
     }
 
     public Double getCosto() {
@@ -35,4 +40,27 @@ public class Consulta {
     }
     
     
+    
+     public void insertarConsulta()  {
+
+        String query = "INSERT INTO CONSULTA ("
+                + " codigo,"
+                + " costo,"
+                + " ESPECIALIDAD_nombre) VALUES ("
+                + " ? , ? , ?)";
+        try {
+            // set all the preparedstatement parameters
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            st.setInt(1, 0);
+            st.setDouble(2, getCosto());
+            st.setString(3, getESPECIALIDAD_nombre());
+
+            // execute the preparedstatement insert
+            st.execute();
+            st.close();
+        } catch (Exception e) {
+            // log exception
+        }
+
+    }
 }

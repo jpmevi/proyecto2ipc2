@@ -5,14 +5,29 @@
  */
 package Entity;
 
+import DataBase.Conexion;
+import Encrypt.Encriptar;
+import java.io.UnsupportedEncodingException;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author potz
  */
 public class Medico {
+
+    /**
+     * Atriburos de nuestro objeto
+     */
     private String codigo;
     private String nombre;
     private String colegiado;
@@ -23,8 +38,24 @@ public class Medico {
     private LocalTime hora_salida;
     private LocalDate fecha_inicio;
     private String password;
+    private String especialidad;
+    private ArrayList listaespecialidades;
 
-    public Medico(String codigo, String nombre, String colegiado, String dpi, String telefono, String correo, LocalTime hora_entrada, LocalTime hora_salida, LocalDate fecha_inicio, String password) {
+    /**
+     * Constructor de Medico
+     * @param codigo
+     * @param nombre
+     * @param colegiado
+     * @param dpi
+     * @param telefono
+     * @param correo
+     * @param hora_entrada
+     * @param hora_salida
+     * @param fecha_inicio
+     * @param password
+     * @param especialidad 
+     */
+    public Medico(String codigo, String nombre, String colegiado, String dpi, String telefono, String correo, LocalTime hora_entrada, LocalTime hora_salida, LocalDate fecha_inicio, String password, String especialidad) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.colegiado = colegiado;
@@ -35,6 +66,20 @@ public class Medico {
         this.hora_salida = hora_salida;
         this.fecha_inicio = fecha_inicio;
         this.password = password;
+        this.especialidad = especialidad;
+        insertarMedico();
+    }
+
+    /**
+     * Getters y setters
+     * @return 
+     */
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
     }
 
     public String getCodigo() {
@@ -116,6 +161,67 @@ public class Medico {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    /**
+     * Metodo para insertar al medico a la base de datos y comprobar si la especializacion ya existe
+     */
+    public void insertarMedico() {
+
+        String query = "INSERT INTO MEDICO ("
+                + " codigo,"
+                + " nombre,"
+                + " colegiado,"
+                + " dpi,"
+                + " telefono,"
+                + " correo,"
+                + " hora_entrada,"
+                + " hora_salida,"
+                + " fecha_inicio,"
+                + " password) VALUES ("
+                + " ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            // set all the preparedstatement parameters
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            st.setString(1, getCodigo());
+            st.setString(2, getNombre());
+            st.setString(3, getColegiado());
+            st.setString(4, getDpi());
+            st.setString(5, getTelefono());
+            st.setString(6, getCorreo());
+            st.setTime(7, Time.valueOf(getHora_entrada()));
+            st.setTime(8, Time.valueOf(getHora_salida()));
+            st.setDate(9, Date.valueOf(getFecha_inicio()));
+            st.setString(10, Encriptar.encriptar(getPassword()));
+
+            // execute the preparedstatement insert
+            
+            st.execute();
+            
+            String query2 = "SELECT* FROM ESPECIALIDAD";
+            st = null;
+            st = Conexion.getConnection().prepareStatement(query2);
+            ResultSet result = st.executeQuery();
+
+            while (result.next()) {
+
+                if (getEspecialidad().equals(String.valueOf(result.getObject("nombre")))) {
+                    Especializacion especializacion = new Especializacion(getEspecialidad(), getCodigo());
+                } else {
+
+                   Especialidad especial = new Especialidad(getEspecialidad());
+                    Especializacion esp = new Especializacion(getEspecialidad(), getCodigo());
+                }
+            }
+
+            st.close();
+        } catch (Exception e) {
+            // log exception
+        }
+
+    }
     
+    
+    
+
     
 }

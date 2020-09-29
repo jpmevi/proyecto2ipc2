@@ -5,6 +5,10 @@
  */
 package Entity;
 
+import DataBase.Conexion;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author potz
@@ -20,6 +24,7 @@ public class Administrador {
         this.nombre = nombre;
         this.dpi = dpi;
         this.password = password;
+        insertarAdministrador();
     }
 
     public String getCodigo() {
@@ -54,5 +59,28 @@ public class Administrador {
         this.password = password;
     }
     
-    
+    public void insertarAdministrador()  {
+
+        String query = "INSERT INTO ADMINISTRADOR ("
+                + " codigo,"
+                + " nombre,"
+                + " dpi,"
+                + " password) VALUES ("
+                + " ?, ?, ?, ?)";
+        try {
+            // set all the preparedstatement parameters
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            st.setString(1, getCodigo());
+            st.setString(2, getNombre());
+            st.setString(3, getDpi());
+            st.setString(4, getPassword());
+
+            // execute the preparedstatement insert
+            st.execute();
+            st.close();
+        } catch (Exception e) {
+            // log exception
+        }
+
+    }
 }

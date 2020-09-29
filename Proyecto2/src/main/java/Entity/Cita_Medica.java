@@ -5,6 +5,10 @@
  */
 package Entity;
 
+import DataBase.Conexion;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -27,6 +31,7 @@ public class Cita_Medica {
         this.PACIENTE_codigo = PACIENTE_codigo;
         this.MEDICO_codigo = MEDICO_codigo;
         this.CONSULTA_codigo = CONSULTA_codigo;
+        insertarCita_Medica();
     }
 
     public String getCodigo() {
@@ -77,5 +82,33 @@ public class Cita_Medica {
         this.CONSULTA_codigo = CONSULTA_codigo;
     }
     
+     public void insertarCita_Medica()  {
+
+        String query = "INSERT INTO CITA_MEDICA ("
+                + " codigo,"
+                + " fecha,"
+                + " hora,"
+                + " PACIENTE_codigo,"
+                + " MEDICO_codigo,"
+                + " CONSULTA_codigo) VALUES ("
+                + " ? , ? , ?, ?, ?, ?)";
+        try {
+            // set all the preparedstatement parameters
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            st.setString(1, getCodigo());
+            st.setDate(2, Date.valueOf(getFecha()));
+            st.setTime(3, Time.valueOf(getHora()));
+            st.setString(4, getPACIENTE_codigo());
+            st.setString(5, getMEDICO_codigo());
+            st.setString(6, getCONSULTA_codigo());
+
+            // execute the preparedstatement insert
+            st.execute();
+            st.close();
+        } catch (Exception e) {
+            // log exception
+        }
+
+    }
     
 }

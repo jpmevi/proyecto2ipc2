@@ -5,6 +5,10 @@
  */
 package Entity;
 
+import DataBase.Conexion;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -13,6 +17,7 @@ import java.time.LocalTime;
  * @author potz
  */
 public class Informe_Examen {
+
     private String codigo;
     private String descripcion;
     private LocalDate fecha;
@@ -29,6 +34,7 @@ public class Informe_Examen {
         this.EXAMEN_codigo = EXAMEN_codigo;
         this.PACIENTE_codigo = PACIENTE_codigo;
         this.LABORATORISTA_codigo = LABORATORISTA_codigo;
+        insertarInforme_Examen();
     }
 
     public String getCodigo() {
@@ -86,6 +92,34 @@ public class Informe_Examen {
     public void setLABORATORISTA_codigo(String LABORATORISTA_codigo) {
         this.LABORATORISTA_codigo = LABORATORISTA_codigo;
     }
-    
-    
+
+    public void insertarInforme_Examen() {
+
+        String query = "INSERT INTO INFORME_EXAMEN ("
+                + " codigo,"
+                + " descripcion,"
+                + " fecha,"
+                + " hora,"
+                + " EXAMEN_codigo,"
+                + " PACIENTE_codigo,"
+                + " LABORATORISTA_codigo) VALUES ("
+                + " ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            // set all the preparedstatement parameters
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            st.setString(1, getCodigo());
+            st.setString(2, getDescripcion());
+            st.setDate(3, Date.valueOf(getFecha()));
+            st.setTime(4, Time.valueOf(getHora()));
+            st.setString(5, getEXAMEN_codigo());
+            st.setString(6, getPACIENTE_codigo());
+            st.setString(7, getLABORATORISTA_codigo());
+            // execute the preparedstatement insert
+            st.execute();
+            st.close();
+        } catch (Exception e) {
+            // log exception
+        }
+
+    }
 }

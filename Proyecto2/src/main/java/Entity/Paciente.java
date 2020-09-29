@@ -39,6 +39,7 @@ public class Paciente {
         this.sangre = sangre;
         this.correo = correo;
         this.password = password;
+        insertarPaciente();
     }
 
     public String getCodigo() {
