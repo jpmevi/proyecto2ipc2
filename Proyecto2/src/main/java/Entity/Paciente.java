@@ -9,6 +9,7 @@ import DataBase.Conexion;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import DataBase.Conexion;
+import Encrypt.Encriptar;
 import java.sql.Date;
 
 /**
@@ -148,7 +149,7 @@ public class Paciente {
             st.setString(7, getPeso());
             st.setString(8, getSangre());
             st.setString(9, getCorreo());
-            st.setString(10, getPassword());
+            st.setString(10,Encriptar.encriptar( getPassword()));
 
             // execute the preparedstatement insert
             st.execute();

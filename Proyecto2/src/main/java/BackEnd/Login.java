@@ -74,13 +74,9 @@ public class Login {
             ResultSet result = st.executeQuery();
             while (result.next()) {
                 if (getUser().equals(String.valueOf(result.getObject("codigo"))) && getPassword().equals(String.valueOf(result.getObject("password")))) {
-                    JOptionPane.showMessageDialog(null, "Ingreso correctamente " + String.valueOf(result.getObject("nombre")));
                     ingreso = true;
                     break;
                 }
-            }
-            if (ingreso == false) {
-                JOptionPane.showMessageDialog(null, "Ingreso mal el usuario o password");
             }
 
             st.close();

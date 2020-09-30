@@ -23,7 +23,7 @@
                 <img src="img/img2.svg">
             </div>
             <div class="login-content">
-                <form>
+                <form >
                     <img src="img/avatar.svg">
                     <h2 class="title">Bienvenido</h2>
                     <div class="input-div one">
@@ -62,7 +62,11 @@
                     String atributo = request.getParameter("atributo").toUpperCase();
                     Login login = new Login(atributo, user, password);
                     if (login.comprobarLogin() == true) {
-                        response.sendRedirect("index.jsp"); 
+                    switch(atributo){
+                    case "PACIENTE":
+                        response.sendRedirect("Paciente/PacienteIndex.jsp"); 
+                         }
+                        
                     }else{
                      %><h4 class="err" >Ingreso mal las credenciales</h4><%
                          }
@@ -72,11 +76,12 @@
              %><h4 class="err" >Ingreso mal las credenciales</h4><%
         }
             }%>
-
+ <a href="#">Forgot Password?</a>
                     <input type="submit" class="btn" value="Login">
                 </form>
             </div>
         </div>
+           
         <script type="text/javascript" src="js/main.js"></script>
 
        

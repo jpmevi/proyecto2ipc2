@@ -22,7 +22,7 @@
         <% 
                 Conexion conexion = new Conexion();
                 conexion.conexionDB();
-                //Paciente paciente = new Paciente("a1", "pedro", "pepe", LocalDate.now(), "123", "4566", "10kg", "o positivo", "prueba@gmail.com", "Juanpablo07");
+                Paciente paciente = new Paciente("pa1", "pedro", "pepe", LocalDate.now(), "123", "4566", "10kg", "o positivo", "prueba@gmail.com", "paciente");
                 Medico medico = new Medico("A8", "GFREI", "555", "3007", "352311", "GFREI@GMAIL.COM", LocalTime.now(), LocalTime.now(), LocalDate.now(), "ELSABROSON","UROLOGO");
                 //Administrador admin = new Administrador("A4", "POPO", "1234567890", "252525");
                 //Especialidad especial = new Especialidad("OTORRINO");

@@ -7,17 +7,14 @@ package Entity;
 
 import DataBase.Conexion;
 import Encrypt.Encriptar;
-import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -39,10 +36,13 @@ public class Medico {
     private LocalDate fecha_inicio;
     private String password;
     private String especialidad;
-    private ArrayList listaespecialidades;
+    private String palabra;
+    private ResultSet resultado;
+   
 
     /**
      * Constructor de Medico
+     *
      * @param codigo
      * @param nombre
      * @param colegiado
@@ -53,7 +53,7 @@ public class Medico {
      * @param hora_salida
      * @param fecha_inicio
      * @param password
-     * @param especialidad 
+     * @param especialidad
      */
     public Medico(String codigo, String nombre, String colegiado, String dpi, String telefono, String correo, LocalTime hora_entrada, LocalTime hora_salida, LocalDate fecha_inicio, String password, String especialidad) {
         this.codigo = codigo;
@@ -70,10 +70,17 @@ public class Medico {
         insertarMedico();
     }
 
+ public Medico(String palabra){
+     this.palabra=palabra;
+ }
+
     /**
      * Getters y setters
-     * @return 
+     *
+     * @return
      */
+
+
     public String getEspecialidad() {
         return especialidad;
     }
@@ -163,7 +170,8 @@ public class Medico {
     }
 
     /**
-     * Metodo para insertar al medico a la base de datos y comprobar si la especializacion ya existe
+     * Metodo para insertar al medico a la base de datos y comprobar si la
+     * especializacion ya existe
      */
     public void insertarMedico() {
 
@@ -194,9 +202,8 @@ public class Medico {
             st.setString(10, Encriptar.encriptar(getPassword()));
 
             // execute the preparedstatement insert
-            
             st.execute();
-            
+
             String query2 = "SELECT* FROM ESPECIALIDAD";
             st = null;
             st = Conexion.getConnection().prepareStatement(query2);
@@ -208,7 +215,7 @@ public class Medico {
                     Especializacion especializacion = new Especializacion(getEspecialidad(), getCodigo());
                 } else {
 
-                   Especialidad especial = new Especialidad(getEspecialidad());
+                    Especialidad especial = new Especialidad(getEspecialidad());
                     Especializacion esp = new Especializacion(getEspecialidad(), getCodigo());
                 }
             }
@@ -219,9 +226,21 @@ public class Medico {
         }
 
     }
-    
-    
-    
 
-    
+    public ResultSet buscarMedico(String atributo,String valor) {
+        Conexion conexion = new Conexion();
+                conexion.conexionDB();
+        try{
+            String query = "SELECT* FROM MEDICO WHERE "+atributo+" LIKE '%"+valor+"%'";
+            
+        PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+        resultado = st.executeQuery();
+        
+        st.close();
+        }catch(Exception e){
+            
+        }
+        return resultado;
+    }
+
 }
