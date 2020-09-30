@@ -60,11 +60,19 @@ form{
     height: 100px;
 }
 
+
 .login-content h2{
 	margin: 15px 0;
 	color: #333;
 	text-transform: uppercase;
 	font-size: 2.9rem;
+}
+
+.error h4{
+	margin: 5px 0;
+	color: #ff1c53;
+	text-transform: uppercase;
+	font-size: 1rem;
 }
 
 .login-content .input-div{
@@ -112,7 +120,7 @@ form{
 	bottom: -2px;
 	width: 0%;
 	height: 2px;
-	background-color: #38d39f;
+	background-color: #1c75ff;
 	transition: .4s;
 }
 
@@ -134,7 +142,7 @@ form{
 }
 
 .input-div.focus > .i > i{
-	color: #38d39f;
+	color: #1c75ff;
 }
 
 .input-div > div > input{
@@ -148,7 +156,7 @@ form{
 	background: none;
 	padding: 0.5rem 0.7rem;
 	font-size: 1.2rem;
-	color: #555;
+	color: #1c75ff;
 	font-family: 'poppins', sans-serif;
 }
 
@@ -193,6 +201,8 @@ a:hover{
  .custom-select {
   position: relative;
   font-family: Arial;
+  left: 85px;
+   width: 100px;
 }
 .custom-select select {
   display: none; /*hide original SELECT element: */
