@@ -80,6 +80,7 @@
                                 <th>Hora Salida</th>
                                 <th>Fecha</th>
                                 <th>Especialidad</th>
+                                <th>Cita</th>
                             </tr>
                             <%      while (rs.next()) {
 
@@ -92,6 +93,10 @@
                                 <td><%= String.valueOf(rs.getObject("hora_salida"))%></td>
                                 <td><%= String.valueOf(rs.getObject("fecha_inicio"))%></td>
                                 <td><%= String.valueOf(rs.getObject("especialidad_nombre"))%></td>
+                                <td>
+                                    
+                                    <a href="AgendarConsulta.jsp?codigo=<%=rs.getString("codigo")%>">Agendar Cita</a>
+                                </td>
                             </tr>
 
 

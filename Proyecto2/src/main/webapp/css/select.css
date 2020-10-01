@@ -10,10 +10,11 @@ and open the template in the editor.
 
 
  .custom-select {
-  position: relative;
+  position: absolute;
   font-family: Arial;
    width: 100px;
    z-index: 99;
+   
 }
 .custom-select select {
   display: none; /*hide original SELECT element: */
@@ -51,6 +52,7 @@ and open the template in the editor.
   border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
   cursor: pointer;
   z-index: 99;
+  
 }
 
 /* Style items (options): */
@@ -61,6 +63,7 @@ and open the template in the editor.
   left: 0;
   right: 0;
   z-index: 99;
+  
 }
 
 /* Hide the items when the select box is closed: */
@@ -73,3 +76,4 @@ and open the template in the editor.
   background-color: rgba(0, 0, 0, 0.1);
   z-index: 99;
 }
+

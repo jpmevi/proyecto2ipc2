@@ -212,6 +212,7 @@ public class Medico {
 
                     Especialidad especial = new Especialidad(getEspecialidad());
                     Especializacion esp = new Especializacion(getEspecialidad(), getCodigo());
+                    Consulta consulta = new Consulta(200.0, getEspecialidad());
                 }
             }
 
