@@ -15,7 +15,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author potz
@@ -37,8 +36,6 @@ public class Medico {
     private String password;
     private String especialidad;
     private String palabra;
-    private ResultSet resultado;
-   
 
     /**
      * Constructor de Medico
@@ -70,17 +67,15 @@ public class Medico {
         insertarMedico();
     }
 
- public Medico(String palabra){
-     this.palabra=palabra;
- }
+    public Medico(String palabra) {
+        this.palabra = palabra;
+    }
 
     /**
      * Getters y setters
      *
      * @return
      */
-
-
     public String getEspecialidad() {
         return especialidad;
     }
@@ -227,20 +222,50 @@ public class Medico {
 
     }
 
-    public ResultSet buscarMedico(String atributo,String valor) {
+    public ResultSet buscarMedico(String atributo, String valor) {
         Conexion conexion = new Conexion();
-                conexion.conexionDB();
-        try{
-            String query = "SELECT* FROM MEDICO WHERE "+atributo+" LIKE '%"+valor+"%'";
-            
-        PreparedStatement st = Conexion.getConnection().prepareStatement(query);
-        resultado = st.executeQuery();
-        
-        st.close();
-        }catch(Exception e){
-            
+        conexion.conexionDB();
+        try {
+            String query = "SELECT M.*,E.especialidad_nombre  FROM MEDICO M INNER JOIN ESPECIALIZACION E ON M.codigo=E.medico_codigo WHERE M.nombre LIKE '%" + valor + "%'";
+
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
         }
-        return resultado;
+
+    }
+
+    public ResultSet buscarEspecialidad(String atributo, String valor) {
+        Conexion conexion = new Conexion();
+        conexion.conexionDB();
+        try {
+            String query = "SELECT M.*,E.especialidad_nombre  FROM MEDICO M INNER JOIN ESPECIALIZACION E ON M.codigo=E.medico_codigo WHERE E.especialidad_nombre LIKE '%" + valor + "%'";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    
+    public ResultSet buscarHora(String atributo, String valor) {
+        Conexion conexion = new Conexion();
+        conexion.conexionDB();
+        try {
+            String query = "SELECT M.*,E.especialidad_nombre FROM MEDICO M INNER JOIN ESPECIALIZACION E ON M.codigo=E.medico_codigo WHERE hora_salida>='"+valor+"' AND '"+valor+"'>=hora_entrada";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 
 }
