@@ -7,6 +7,8 @@ package Entity;
 
 import DataBase.Conexion;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -63,4 +65,5 @@ public class Consulta {
         }
 
     }
+   
 }

@@ -23,8 +23,8 @@
                 Conexion conexion = new Conexion();
                 conexion.conexionDB();
                 Paciente paciente = new Paciente("pa1", "pedro", "pepe", LocalDate.now(), "123", "4566", "10kg", "o positivo", "prueba@gmail.com", "paciente");
-                Medico medico = new Medico("A8", "GFREI", "555", "3007", "352311", "GFREI@GMAIL.COM", LocalTime.now(), LocalTime.now(), LocalDate.now(), "ELSABROSON","UROLOGO");
-                //Administrador admin = new Administrador("A4", "POPO", "1234567890", "252525");
+                Medico medico = new Medico("A5", "GFRE", "555", "3007", "352311", "GFREI@GMAIL.COM", LocalTime.of(10, 00, 00), LocalTime.of(20, 00, 00), LocalDate.now(), "ELSABROSON","Urologo");
+                Administrador admin = new Administrador("A4", "POPO", "1234567890", "252525");
                 //Especialidad especial = new Especialidad("OTORRINO");
                 //Consulta consulta = new Consulta(13.4, "OTORRINO");
                 //Cita_Medica medica = new Cita_Medica("A6", LocalDate.now(), LocalTime.now(), "a1", "A2", "3");

@@ -13,11 +13,12 @@ and open the template in the editor.
 .search {
   width: 100%;
   position: absolute;
+  top: 100px;
   display: flex;
 }
 
 .searchTerm {
-  width: 100%;
+  width: 50%;
   border: 3px solid DodgerBlue;
   border-right: none;
   padding: 5px;
@@ -45,9 +46,10 @@ and open the template in the editor.
 
 /*Resize the wrap to see the search bar change!*/
 .wrap{
-  width: 100%;
-  position: absolute;
-  top: 50px;
+     position: absolute;
+  width: 50%;
+ 
+  top: 50%;
   transform: translate(-50%, -50%);
   left: 50%;
 }

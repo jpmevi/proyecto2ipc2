@@ -16,18 +16,14 @@ and open the template in the editor.
 
 }
 .contenedorselect{
-    position: absolute;
-    top: 100%;
-    left: 100%;
-    transform: translate(-50%,0);
-    text-align: center;
-
+    position: relative;
+right: 100px;
 }
 
 .contenedorselect1{
     position: relative;
     top: 10%;
-    left: 10%;
+    left: 50%;
     transform: translate(-50%,0);
     text-align: center;
 
@@ -35,29 +31,24 @@ and open the template in the editor.
 .contenedorhorafecha{
     position: relative;
     top: 50px;
-    left: 0px;
     text-align: center;
 
 }
 .contenedorfecha{
-    position: absolute;
-    top: 100%;
-    left: 0;
-    text-align: center;
-
+    position: relative;
+    left: 10%;
 }
-.contenedorhora{
-    position: absolute;
-    top: 0%;
-    left: 100%;
-    text-align: center;
 
-}
 .contenedorbotones{
     position: relative;
-    top: 100px;
-    left: 0px;
+    top: 70px;
+    right: 45%;
     text-align: center;
+}
+.contenedorbotones1{
+    position: relative;
+    bottom:  77px;
+    left: 100%;
 
 }
 .inputAnimate {

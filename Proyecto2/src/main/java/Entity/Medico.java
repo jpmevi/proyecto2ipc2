@@ -199,23 +199,17 @@ public class Medico {
             // execute the preparedstatement insert
             st.execute();
 
-            String query2 = "SELECT* FROM ESPECIALIDAD";
+            String query2 = "SELECT nombre FROM ESPECIALIDAD WHERE nombre='"+getEspecialidad()+"'";
             st = null;
             st = Conexion.getConnection().prepareStatement(query2);
             ResultSet result = st.executeQuery();
-
-            while (result.next()) {
-
-                if (getEspecialidad().equals(String.valueOf(result.getObject("nombre")))) {
-                    Especializacion especializacion = new Especializacion(getEspecialidad(), getCodigo());
-                } else {
-
-                    Especialidad especial = new Especialidad(getEspecialidad());
-                    Especializacion esp = new Especializacion(getEspecialidad(), getCodigo());
-                    Consulta consulta = new Consulta(200.0, getEspecialidad());
-                }
+            if (!result.next()) {
+                Especialidad especial = new Especialidad(getEspecialidad());
+                Especializacion esp = new Especializacion(getEspecialidad(), getCodigo());
+                Consulta consulta = new Consulta(200.0, getEspecialidad());
+            } else {
+               Especializacion especializacion = new Especializacion(getEspecialidad(), getCodigo());
             }
-
             st.close();
         } catch (Exception e) {
             // log exception
@@ -227,7 +221,7 @@ public class Medico {
         Conexion conexion = new Conexion();
         conexion.conexionDB();
         try {
-            String query = "SELECT M.*,E.especialidad_nombre  FROM MEDICO M INNER JOIN ESPECIALIZACION E ON M.codigo=E.medico_codigo WHERE M.nombre LIKE '%" + valor + "%'";
+            String query = "SELECT M.*,E.ESPECIALIDAD_nombre,C.costo FROM MEDICO M INNER JOIN ESPECIALIZACION E ON M.codigo=E.MEDICO_codigo INNER JOIN CONSULTA C ON E.ESPECIALIDAD_nombre=C.ESPECIALIDAD_nombre WHERE M.nombre LIKE '%" + valor + "%'";
 
             PreparedStatement st = Conexion.getConnection().prepareStatement(query);
             ResultSet rs = st.executeQuery();
@@ -243,7 +237,7 @@ public class Medico {
         Conexion conexion = new Conexion();
         conexion.conexionDB();
         try {
-            String query = "SELECT M.*,E.especialidad_nombre  FROM MEDICO M INNER JOIN ESPECIALIZACION E ON M.codigo=E.medico_codigo WHERE E.especialidad_nombre LIKE '%" + valor + "%'";
+            String query = "SELECT M.*,E.ESPECIALIDAD_nombre,C.costo FROM MEDICO M INNER JOIN ESPECIALIZACION E ON M.codigo=E.MEDICO_codigo INNER JOIN CONSULTA C ON E.ESPECIALIDAD_nombre=C.ESPECIALIDAD_nombre WHERE E.ESPECIALIDAD_nombre LIKE '%" + valor + "%'";
             PreparedStatement st = Conexion.getConnection().prepareStatement(query);
             ResultSet rs = st.executeQuery();
             return rs;
@@ -252,13 +246,12 @@ public class Medico {
             return null;
         }
     }
-    
-    
+
     public ResultSet buscarHora(String atributo, String valor) {
         Conexion conexion = new Conexion();
         conexion.conexionDB();
         try {
-            String query = "SELECT M.*,E.especialidad_nombre FROM MEDICO M INNER JOIN ESPECIALIZACION E ON M.codigo=E.medico_codigo WHERE hora_salida>='"+valor+"' AND '"+valor+"'>=hora_entrada";
+            String query = "SELECT M.*,E.ESPECIALIDAD_nombre,C.costo FROM MEDICO M INNER JOIN ESPECIALIZACION E ON M.codigo=E.MEDICO_codigo INNER JOIN CONSULTA C ON E.ESPECIALIDAD_nombre=C.ESPECIALIDAD_nombre WHERE hora_salida>='" + valor + "' AND '" + valor + "'>=hora_entrada";
             PreparedStatement st = Conexion.getConnection().prepareStatement(query);
             ResultSet rs = st.executeQuery();
             return rs;

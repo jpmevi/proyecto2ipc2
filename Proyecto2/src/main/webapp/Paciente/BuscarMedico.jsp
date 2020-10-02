@@ -16,7 +16,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <script src="https://kit.fontawesome.com/a81368914c.js"></script>
-        <link rel="stylesheet" href="../css/buscarmedicostyle.css">
+        <link rel="stylesheet" href="../css/header.css">
         <link rel="stylesheet" href="../css/tablestyle.css">
         <link rel="stylesheet" href="../css/search.css">
         <link rel="stylesheet" href="../css/select.css">
@@ -24,14 +24,12 @@
     </head>
     <body>
         <%@include file="header.jsp" %>
-        <main>
-            <section>
+
                 <form >
-                    <div class="overlay">
 
 
+<div class="contenedoro">
 
-<div class="contenedor">
                         <div class="custom-select" style="width:200px;">
                             <select name="atributo">
                                 <option value=0>TIPO DE BUSQUEDA:</option>
@@ -51,7 +49,7 @@
                             </div>
                         </div>
     
-</div>
+
                         <div class="tabla"  style="z-index: 0;">
                         <% if (!(request.getParameter("dato") == null)) {
                         try {
@@ -95,7 +93,7 @@
                                 <td><%= String.valueOf(rs.getObject("especialidad_nombre"))%></td>
                                 <td>
                                     
-                                    <a href="AgendarConsulta.jsp?codigo=<%=rs.getString("codigo")%>">Agendar Cita</a>
+                                    <a href="AgendarConsulta.jsp?codigo=<%=rs.getString("codigo")%>&especialidad=<%=rs.getString("especialidad_nombre")%>">Agendar Cita</a>
                                 </td>
                             </tr>
 
@@ -111,13 +109,12 @@
 
 
                         </div>
-                        
-                    </div>
+</div>
+
                 </form>
 
 
-            </section>
-        </main>
+
                                     <script type="text/javascript" src="../js/select.js"></script>
     </body>
 </html>

@@ -64,7 +64,7 @@
                     if (login.comprobarLogin() == true) {
                     switch(atributo){
                     case "PACIENTE":
-                    session.setAttribute("codigouser", request.getParameter("user"));
+                    session.setAttribute("Paciente", request.getParameter("user"));
                         response.sendRedirect("Paciente/PacienteIndex.jsp"); 
                          }
                         
