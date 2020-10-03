@@ -8,6 +8,7 @@ package Entity;
 import DataBase.Conexion;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,6 +24,9 @@ public class Consulta {
         this.ESPECIALIDAD_nombre = ESPECIALIDAD_nombre;
         
         insertarConsulta();
+    }
+    public Consulta(){
+        
     }
 
     public Double getCosto() {
@@ -62,6 +66,39 @@ public class Consulta {
             st.close();
         } catch (Exception e) {
             // log exception
+        }
+
+    }
+     public ResultSet buscarConsulta() {
+        try {
+            String query = "SELECT* FROM CONSULTA";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+      public void actualizarConsulta(int codigo, double costo) throws SQLException{
+          
+        String query = "UPDATE CONSULTA SET costo=? WHERE codigo=?";
+
+        try { 
+            //Se establecen los parametros del PreparedStament
+
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+
+            
+
+            st.setDouble(1,costo);
+            st.setInt(2, codigo);
+            //Ejecuta el insert
+            st.executeUpdate();
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("Error "+e);
         }
 
     }

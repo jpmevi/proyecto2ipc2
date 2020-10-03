@@ -17,7 +17,7 @@ and open the template in the editor.
 }
 .contenedorselect{
     position: relative;
-right: 100px;
+    right: 100px;
 }
 
 .contenedorselect1{
@@ -187,4 +187,14 @@ body .dribbble {
 body .dribbble img {
     display: block;
     width: 76px;
+}
+
+.caja{
+    position: absolute;
+    width: 50%;
+    top: 10%;
+    left: 50%;
+    background-color: #051fa2; 
+    transform: translate(-50%,0);
+    text-align: center;
 }

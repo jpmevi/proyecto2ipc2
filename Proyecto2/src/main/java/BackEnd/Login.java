@@ -82,9 +82,7 @@ public class Login {
             st.close();
         } catch (Exception e) {
             // log exception
-        } finally {
-            Conexion.disconnectDB();
-        }
+        } 
     }
 
 }

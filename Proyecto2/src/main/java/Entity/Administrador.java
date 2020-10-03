@@ -6,6 +6,7 @@
 package Entity;
 
 import DataBase.Conexion;
+import Encrypt.Encriptar;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 
@@ -73,7 +74,7 @@ public class Administrador {
             st.setString(1, getCodigo());
             st.setString(2, getNombre());
             st.setString(3, getDpi());
-            st.setString(4, getPassword());
+            st.setString(4,Encriptar.encriptar( getPassword()));
 
             // execute the preparedstatement insert
             st.execute();

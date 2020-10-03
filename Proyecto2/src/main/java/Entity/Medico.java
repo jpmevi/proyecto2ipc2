@@ -218,8 +218,6 @@ public class Medico {
     }
 
     public ResultSet buscarMedico(String atributo, String valor) {
-        Conexion conexion = new Conexion();
-        conexion.conexionDB();
         try {
             String query = "SELECT M.*,E.ESPECIALIDAD_nombre,C.costo FROM MEDICO M INNER JOIN ESPECIALIZACION E ON M.codigo=E.MEDICO_codigo INNER JOIN CONSULTA C ON E.ESPECIALIDAD_nombre=C.ESPECIALIDAD_nombre WHERE M.nombre LIKE '%" + valor + "%'";
 

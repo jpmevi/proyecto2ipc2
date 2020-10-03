@@ -14,7 +14,6 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <script src="https://kit.fontawesome.com/a81368914c.js"></script>
         <link rel="stylesheet" href="../css/header.css">
         <link rel="stylesheet" href="../css/tablestyle.css">
@@ -25,33 +24,30 @@
     <body>
         <%@include file="header.jsp" %>
 
-                <form >
+        <form>
+            <div class="caja"style="z-index: 100;">
+                <div class="contenedorselect1"  >
+                    <div class="custom-select" style="width:200px;">
+                        <select name="atributo">
+                            <option value=0>TIPO DE BUSQUEDA:</option>
+                            <option value="Nombre">Nombre</option>
+                            <option value="Especialidad">Especialidad</option>
+                            <option value="Hora">Hora</option>
+                            <option value="Fecha">Fecha</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="wrap" >
+                    <div class="search" >
+                        <input type="text" class="searchTerm" placeholder="Buscar Medico por nombre" name="dato">
+                        <button type="submit" class="searchButton">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
 
 
-<div class="contenedoro">
-
-                        <div class="custom-select" style="width:200px;">
-                            <select name="atributo">
-                                <option value=0>TIPO DE BUSQUEDA:</option>
-                                <option value="Nombre">Nombre</option>
-                                <option value="Especialidad">Especialidad</option>
-                                <option value="Hora">Hora</option>
-                                <option value="Fecha">Fecha</option>
-                            </select>
-                        </div>
-
-                        <div class="wrap">
-                            <div class="search">
-                                <input type="text" class="searchTerm" placeholder="Buscar Medico por nombre" name="dato">
-                                <button type="submit" class="searchButton">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-    
-
-                        <div class="tabla"  style="z-index: 0;">
-                        <% if (!(request.getParameter("dato") == null)) {
+                <% if (!(request.getParameter("dato") == null)) {
                         try {
                             ResultSet rs = null;
                             String dato = request.getParameter("dato");
@@ -69,52 +65,57 @@
                             }
 
 
-                        %>
-                        <table class="containero">
-                            <tr>
-                                <th>Codigo</th>
-                                <th>Nombre</th>
-                                <th>Hora Entrada</th>
-                                <th>Hora Salida</th>
-                                <th>Fecha</th>
-                                <th>Especialidad</th>
-                                <th>Cita</th>
-                            </tr>
-                            <%      while (rs.next()) {
+                %>
+            </div>
+            <div class="tbla" style="z-index: 99;">
+                <table class="containero" style="z-index: 99;">
+                    <tr>
+                        <th><h1>Codigo</h1></th>
+                        <th><h1>Nombre</h1></th>
+                        <th><h1>Hora Entrada</h1></th>
+                        <th><h1>Hora Salida</h1></th>
+                        <th><h1>Fecha</h1></th>
+                        <th><h1>Especialidad</h1></th>
+                        <th><h1>Costo</h1></th>
+                        <th><h1>Cita</h1></th>
+
+                    </tr>
+                    <%      while (rs.next()) {
 
 
-                            %>
-                            <tr>
-                                <td><%= String.valueOf(rs.getObject("codigo"))%></td>
-                                <td><%= String.valueOf(rs.getObject("nombre"))%></td>
-                                <td><%= String.valueOf(rs.getObject("hora_entrada"))%></td>
-                                <td><%= String.valueOf(rs.getObject("hora_salida"))%></td>
-                                <td><%= String.valueOf(rs.getObject("fecha_inicio"))%></td>
-                                <td><%= String.valueOf(rs.getObject("especialidad_nombre"))%></td>
-                                <td>
-                                    
-                                    <a href="AgendarConsulta.jsp?codigo=<%=rs.getString("codigo")%>&especialidad=<%=rs.getString("especialidad_nombre")%>">Agendar Cita</a>
-                                </td>
-                            </tr>
+                    %>
+                    <tr>
+                        <td><h2><%= String.valueOf(rs.getObject("codigo"))%></h2></td>
+                        <td><h2><%= String.valueOf(rs.getObject("nombre"))%></h2></td>
+                        <td><h2><%= String.valueOf(rs.getObject("hora_entrada"))%></h2></td>
+                        <td><h2><%= String.valueOf(rs.getObject("hora_salida"))%></h2></td>
+                        <td><h2><%= String.valueOf(rs.getObject("fecha_inicio"))%></h2></td>
+                        <td><h2><%= String.valueOf(rs.getObject("especialidad_nombre"))%></h2></td>
+                        <td><h2><%= String.valueOf(rs.getObject("costo"))%></h2></td>
+                        <td>
+
+                            <h2><a href="AgendarConsulta.jsp?codigo=<%=rs.getString("codigo")%>&especialidad=<%=rs.getString("especialidad_nombre")%>">Agendar Cita</a></h2>
+                        </td>
+                    </tr>
 
 
-                            <%
-                                }
-                            %></table><%
-                            } catch (Exception e) {
-                            %><h4 class="err" >Ingreso mal las credenciales</h4><%                     }
-                                    }%>
-
-
-
-
-                        </div>
-</div>
-
-                </form>
+                    <%
+                        }
+                    %></table><%
+                    } catch (Exception e) {
+                    %><h4 class="err" >Ingreso mal las credenciales</h4><%                     }
+                        }%>
 
 
 
-                                    <script type="text/javascript" src="../js/select.js"></script>
+            </div>
+
+
+
+        </form>
+
+
+
+        <script type="text/javascript" src="../js/select.js"></script>
     </body>
 </html>

@@ -10,7 +10,7 @@ and open the template in the editor.
 
 
  .custom-select {
-  position: absolute;
+  position: relative;
   font-family: Arial;
    width: 100px;
    z-index: 99;
@@ -77,3 +77,11 @@ and open the template in the editor.
   z-index: 99;
 }
 
+.cajaselect{
+   position: relative;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%,0);
+    text-align: center;
+
+}

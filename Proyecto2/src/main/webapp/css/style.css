@@ -7,6 +7,8 @@ and open the template in the editor.
     Created on : Sep 29, 2020, 4:45:28 AM
     Author     : potz
 */
+
+
 *{
 	padding: 0;
 	margin: 0;
@@ -25,6 +27,7 @@ body{
 	height: 100%;
 	z-index: -1;
 }
+
 
 .container{
     width: 100vw;

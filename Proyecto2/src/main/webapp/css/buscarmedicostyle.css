@@ -12,9 +12,9 @@ and open the template in the editor.
 
 .contenedoro{
     position: absolute;
-    top: 30%;
+    top: 10%;
     left: 50%;
-    transform: translate(-50%,0);
+    transform: translate(-50%,-50%);
     text-align: center;
 
 }
@@ -110,9 +110,7 @@ section{
 }
 .tabla{
     position: relative;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%,0%);
+    top: 500px;
     text-align: center;
 }
 .texto{

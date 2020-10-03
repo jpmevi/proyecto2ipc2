@@ -7,21 +7,23 @@ package Entity;
 
 import DataBase.Conexion;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author potz
  */
 public class Examen {
-    private String codigo;
     private String nombre;
     private String descripcion;
     private boolean orden;
     private double costo;
     private String tipo_archivo;
 
-    public Examen(String codigo, String nombre, String descripcion, boolean orden, double costo, String tipo_archivo) {
-        this.codigo = codigo;
+    public Examen( String nombre, String descripcion, boolean orden, double costo, String tipo_archivo) {
+
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.orden = orden;
@@ -29,13 +31,8 @@ public class Examen {
         this.tipo_archivo = tipo_archivo;
         insertarExamen();
     }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public Examen(String nombre){
+        this.nombre=nombre;
     }
 
     public String getNombre() {
@@ -93,21 +90,63 @@ public class Examen {
                 + " ? , ? , ?, ?, ?, ?)";
         try {
             // set all the preparedstatement parameters
+             
+            JOptionPane.showMessageDialog(null, query);
             PreparedStatement st = Conexion.getConnection().prepareStatement(query);
-            st.setString(1, getCodigo());
+            st.setInt(1, 0);
             st.setString(2, getNombre());
             st.setString(3, getDescripcion());
-            st.setInt(4, 0);
+            st.setBoolean(4, isOrden());
             st.setDouble(5, getCosto());
             st.setString(6, getTipo_archivo());
-
             // execute the preparedstatement insert
+           
             st.execute();
             st.close();
-        } catch (Exception e) {
-            // log exception
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
         }
 
     }
     
+     public ResultSet buscarExamen() {
+        try {
+            String query = "SELECT* FROM EXAMEN";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+     public void actualizarExamen_laboratorio(String nombre, String descripcion, boolean orden, double costo, String tipo_archivo, int codigo) throws SQLException{
+          
+        String query = "UPDATE EXAMEN SET nombre=?, orden=?, descripcion=?, costo=?, tipo_archivo=? WHERE codigo=?";
+
+        try { 
+            //Se establecen los parametros del PreparedStament
+
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+
+            
+            st.setInt(6,codigo);
+            st.setString(1,nombre);
+            if(orden){
+                st.setInt(2,1);
+            }else{
+                st.setInt(2,0);
+            }
+            st.setString(3,descripcion);
+            st.setDouble(4,costo);
+            st.setString(5,tipo_archivo);
+            //Ejecuta el insert
+            st.executeUpdate();
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("Error "+e);
+        }
+
+    }
 }

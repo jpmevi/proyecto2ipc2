@@ -3,6 +3,7 @@
     Created on : Sep 29, 2020, 4:10:21 AM
     Author     : potz
 --%>
+<%@page import="DataBase.Conexion"%>
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="BackEnd.Login"%>
 <%@page import="Encrypt.Encriptar"%>
@@ -55,36 +56,43 @@
                         </select>
                     </div>
                     <div class="error" >
-                     <% if (!(request.getParameter("user") == null) && !(request.getParameter("password") == null)) {
-                try {
-                    String user = request.getParameter("user");
-                    String password =Encriptar.encriptar( request.getParameter("password"));
-                    String atributo = request.getParameter("atributo").toUpperCase();
-                    Login login = new Login(atributo, user, password);
-                    if (login.comprobarLogin() == true) {
-                    switch(atributo){
-                    case "PACIENTE":
-                    session.setAttribute("Paciente", request.getParameter("user"));
-                        response.sendRedirect("Paciente/PacienteIndex.jsp"); 
-                         }
-                        
-                    }else{
-                     %><h4 class="err" >Ingreso mal las credenciales</h4><%
-                         }
-                }
-            catch (Exception e) {
-            
-             %><h4 class="err" >Ingreso mal las credenciales</h4><%
-        }
-            }%>
- <a href="#">Forgot Password?</a>
-                    <input type="submit" class="btn" value="Login">
-                </form>
-            </div>
-        </div>
-           
-        <script type="text/javascript" src="js/main.js"></script>
+                        <%  
+                            if (!(request.getParameter("user") == null) && !(request.getParameter("password") == null)) {
+                                try {
+                                    String user = request.getParameter("user");
+                                    String password = Encriptar.encriptar(request.getParameter("password"));
+                                    String atributo = request.getParameter("atributo").toUpperCase();
+                                    Login login = new Login(atributo, user, password);
+                                    if (login.comprobarLogin() == true) {
+                                        switch (atributo) {
+                                            case "PACIENTE": {
+                                                session.setAttribute("Paciente", request.getParameter("user"));
+                                                response.sendRedirect("Paciente/PacienteIndex.jsp");
+                                                break;
+                                            }
 
-       
+                                            case "ADMINISTRADOR": {
+                                                session.setAttribute("Admin", request.getParameter("user"));
+                                                response.sendRedirect("Administrador/AdministradorIndex.jsp");
+                                                break;
+                                            }
+
+                                        }
+                                    } else {
+                        %><h4 class="err" >Ingreso mal las credenciales</h4><%
+                            }
+                        } catch (Exception e) {
+
+                        %><h4 class="err" >Ingreso mal las credenciales</h4><%                     }
+                 }%>
+                        <a href="#">Forgot Password?</a>
+                        <input type="submit" class="btn" value="Login">
+                        </form>
+                    </div>
+            </div>
+
+            <script type="text/javascript" src="js/main.js"></script>
+
+
     </body>
 </html>
