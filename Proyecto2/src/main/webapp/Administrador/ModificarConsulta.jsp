@@ -22,36 +22,47 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="../css/header.css?2.0">
+        <link rel="stylesheet" href="../css/header.css?3.0">
         <link rel="stylesheet" href="../css/textstyle.css?4.0">
         <link rel="stylesheet" href="../css/tablestyle.css?4.0">
         <link rel="stylesheet" href="../css/button.css?2.0">
-        <link rel="stylesheet" href="../css/search.css?3.0">
+        <link rel="stylesheet" href="../css/searchbar.css?8.0">
         <title>Modificar Examen</title>
     </head>
     <body>
         <%@include file="header.jsp" %>
         <form>
             <div class="caja">
-                <div class="wrap" >
-                    <div class="search" >
-                        <input type="text" class="searchTerm" placeholder="Buscar Medico por nombre" name="dato">
-                        <button type="submit" class="searchButton">
-                            <i class="fa fa-search"></i>
-                        </button>
+
+                <section class="webdesigntuts-workshop" >
+                    <div>
+                        <input type="search" placeholder="Filtrar por especialidad?" name="filtro">		    	
+                        <button>Filtrar</button>
                     </div>
-                </div>
+                </section>
                 <table class="containero" style="z-index: 99;">
-                    <%  Conexion conexion = new Conexion();
-                        conexion.conexionDB();
+                    <%if (!(request.getParameter("filtro") == null)) {
+                            String filtro = request.getParameter("filtro");
+                            try {
+                                if (!filtro.equals("")) {
+                                    session.setAttribute("Filtro", request.getParameter("filtro"));
+                                }
+                            } catch (Exception e) {
+                            }
+
+                        }
+                        String filtrofinal = String.valueOf(session.getAttribute("Filtro"));
                         try {
+                            if (filtrofinal.equals("null") ) {
+                                filtrofinal = "";
+                            } 
                             Consulta ex = new Consulta();
                             ResultSet rs = null;
-                            rs = ex.buscarConsulta();
+                            rs = ex.buscarConsulta(filtrofinal);
                             if (!(rs.next())) {
                     %><h4>No hay ninguna Consulta para modificar</h4><%
                     } else {
-                        rs = ex.buscarConsulta();
+                        rs = ex.buscarConsulta(filtrofinal);
 
                     %> <tr>
                         <th><h1>Codigo</h1></th>
@@ -83,12 +94,12 @@
                 %>
 
 
-                <input value=<%=request.getParameter("costo")%> type="number" name="costo" step="0.01" min="0" style="width: 97%; margin: 10px;" placeholder=<%=request.getParameter("costo")%> >
+                <input value=<%=request.getParameter("costo")%> type="number" name="costo" step="0.01" min="0" style="width: 97%; margin: 10px;" placeholder="Costo" required>
 
                 <button class="draw" type="submit" name="gen">Modificar</button>
                 <%
 
-                                if (!(request.getParameter("gen") == null) && !(request.getParameter("costo") == null)) {
+                                if (!(request.getParameter("gen") == null)) {
 
                                     double costo = Double.parseDouble(request.getParameter("costo"));
 
@@ -102,7 +113,7 @@
 
                         }
                     } catch (Exception e) {
-
+ %><h3>Error al modificar La consulta</h3><%
                     }%>
             </div>
 

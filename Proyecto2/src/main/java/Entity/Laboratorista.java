@@ -6,10 +6,14 @@
 package Entity;
 
 import DataBase.Conexion;
+import Encrypt.Encriptar;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalDate;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -37,6 +41,9 @@ public class Laboratorista {
         this.password = password;
         this.EXAMEN_codigo=EXAMEN_codigo;
         insertarLaboratorista();
+    }
+    public Laboratorista(){
+        
     }
 
     public String getEXAMEN_codigo() {
@@ -147,4 +154,43 @@ public class Laboratorista {
 
     }
     
+    
+    public ResultSet buscarLaboratorista(String codigo) {
+        try {
+            String query = "SELECT* FROM LABORATORISTA WHERE codigo LIKE '%"+codigo+"%'";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+     public void actualizarLaboratorista(String codigo, String nombre, String registro, String dpi, String telefono, String correo, LocalDate fecha_inicio, String password, String EXAMEN_codigo) throws SQLException{
+          
+        String query = "UPDATE LABORATORISTA SET nombre=?, registro=?, DPI=?, telefono=?, correo=?, fecha_inicio=?, password=?, EXAMEN_codigo=? WHERE codigo=?";
+
+        try { 
+            //Se establecen los parametros del PreparedStament
+
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            
+            st.setString(9,codigo);
+            st.setString(1,nombre);
+            st.setString(2, registro);
+            st.setString(3, dpi);
+            st.setString(4, telefono);
+            st.setString(5, correo);
+            st.setDate(6, Date.valueOf(fecha_inicio));
+            st.setString(7, Encriptar.encriptar(password));
+            st.setString(8, EXAMEN_codigo);
+            //Ejecuta el insert
+            st.executeUpdate();
+            st.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e);
+        }
+
+    }
 }

@@ -4,16 +4,14 @@
     Author     : potz
 --%>
 
+<%@page import="DataBase.Conexion"%>
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="Entity.Examen"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Expires" content="0">
-        <meta http-equiv="Last-Modified" content="0">
-        <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
-        <meta http-equiv="Pragma" content="no-cache">
+         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="../css/header.css">
         <link rel="stylesheet" href="../css/textstyle.css">
         <link rel="stylesheet" href="../css/select.css">
@@ -26,13 +24,15 @@
         <form>
             <div class="caja">
                 <div class="inputAnimate">
-                    <input type="text" placeholder="Nombre" name="nombre">
+                    <input type="text" placeholder="Nombre" name="nombre" required>
                 </div>
                 <div class="inputAnimate">
-                    <input type="text" placeholder="Archivo" name="tipo">
+                    <input type="text" placeholder="Archivo" name="tipo" required>
                 </div>
-                <textarea name="descripcion" rows="10" cols="40" style="width: 97%; margin: 10px;" placeholder="Descripcion"></textarea>
-                <input type="number" name="costo" step="0.01" min="0" style="width: 97%; margin: 10px;" placeholder="Costo">
+                <textarea name="descripcion" rows="10" cols="40" style="width: 97%; margin: 10px;" placeholder="Descripcion" required></textarea>
+                <div class="inputAnimate">
+                <input type="number" name="costo" step="0.01" min="0" style="width: 97%; margin: 10px;" placeholder="Costo" required>
+                 </div>
                 <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0);">
                     <select name="orden">
                         <option value="0">Orden:</option>
@@ -43,7 +43,7 @@
                 <button class="draw" type="submit" name="gen">Generar</button>
 
                 <%if (!(request.getParameter("gen") == null)) {
-                        if (!(request.getParameter("nombre") == null) && !(request.getParameter("tipo") == null) && !(request.getParameter("descripcion") == null) && !(request.getParameter("costo") == null) && !(request.getParameter("orden") == "0")) {
+                       
                             try {
                                 boolean orden = false;
                                 double costo = Double.parseDouble(request.getParameter("costo"));
@@ -56,14 +56,11 @@
                                 String descripcion = request.getParameter("descripcion");
                                 String tipo = request.getParameter("tipo");
                                 Examen ex = new Examen(nombre, descripcion, orden, costo, tipo);
+                                  %><h4>Examen ingresado con exito</h4><%
                             } catch (Exception e) {
-                                JOptionPane.showMessageDialog(null, e);
-                %><h4>Por favor llene todos los campos</h4><%
+                %><h4>Error para ingresar el examen</h4><%
                             }
 
-                        } else {
-
-                        }
                     }
                 %>
             </div>

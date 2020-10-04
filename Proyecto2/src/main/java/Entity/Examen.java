@@ -109,9 +109,9 @@ public class Examen {
 
     }
     
-     public ResultSet buscarExamen() {
+     public ResultSet buscarExamen(String codigo) {
         try {
-            String query = "SELECT* FROM EXAMEN";
+            String query = "SELECT* FROM EXAMEN WHERE codigo  LIKE '%"+codigo+"%'";
             PreparedStatement st = Conexion.getConnection().prepareStatement(query);
             ResultSet rs = st.executeQuery();
             return rs;

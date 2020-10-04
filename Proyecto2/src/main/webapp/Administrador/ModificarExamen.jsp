@@ -11,6 +11,7 @@
 <%@page import="com.mysql.cj.protocol.Resultset"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%String codigo = request.getParameter("codigo");
+
     try {
         if (!codigo.equals("")) {
             session.setAttribute("Examen", request.getParameter("codigo"));
@@ -18,34 +19,55 @@
 
     } catch (Exception e) {
     }
-    String codigoExamen = String.valueOf(session.getAttribute("Examen"));%>
+    String codigoExamen = String.valueOf(session.getAttribute("Examen"));
+%>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="../css/header.css?2.0">
-        <link rel="stylesheet" href="../css/textstyle.css?4.0">
-        <link rel="stylesheet" href="../css/tablestyle.css?4.0">
-        <link rel="stylesheet" href="../css/select.css?2.0">
-        <link rel="stylesheet" href="../css/button.css?2.0">
+        <link rel="stylesheet" href="../css/header.css">
+        <link rel="stylesheet" href="../css/textstyle.css">
+        <link rel="stylesheet" href="../css/tablestyle.css">
+        <link rel="stylesheet" href="../css/select.css">
+        <link rel="stylesheet" href="../css/button.css">
+        <link rel="stylesheet" href="../css/searchbar.css">
         <title>Modificar Examen</title>
     </head>
     <body>
         <%@include file="header.jsp" %>
         <form>
             <div class="caja">
-
+                <section class="webdesigntuts-workshop" >
+                    <div>
+                        <input type="search" placeholder="Filtrar por nombre?" name="filtro">		    	
+                        <button>Filtrar</button>
+                    </div>
+                </section>
                 <table class="containero" style="z-index: 99;">
-                    <%  Conexion conexion = new Conexion();
-                        conexion.conexionDB();
+
+                    <% if (!(request.getParameter("filtro") == null)) {
+                            String filtro = request.getParameter("filtro");
+                            try {
+                                if (!filtro.equals("")) {
+                                    session.setAttribute("Filtro", request.getParameter("filtro"));
+                                }
+                            } catch (Exception e) {
+                            }
+
+                        }
+                        String filtrofinal = String.valueOf(session.getAttribute("Filtro"));
                         try {
+                            if (filtrofinal.equals("null")) {
+                                filtrofinal = "";
+                            }
                             Examen ex = new Examen("");
                             ResultSet rs = null;
-                            rs = ex.buscarExamen();
+                            rs = ex.buscarExamen(filtrofinal);
                             if (!(rs.next())) {
                     %><h4>No hay ningun Examen para modificar</h4><%
                     } else {
-                        rs = ex.buscarExamen();
+                        rs = ex.buscarExamen(filtrofinal);
 
                     %> <tr>
                         <th><h1>Codigo</h1></th>
@@ -83,13 +105,13 @@
 
                 %>
                 <div class="inputAnimate">
-                    <input type="text" placeholder=<%=request.getParameter("nombre")%> name="nombre" value=<%=request.getParameter("nombre")%> >
+                    <input type="text" placeholder="Nombre" required name="nombre" value=<%=request.getParameter("nombre")%>>
                 </div>
                 <div class="inputAnimate">
-                    <input type="text" placeholder=<%=request.getParameter("tipo")%> name="tipo" value=<%=request.getParameter("tipo")%>>
+                    <input type="text" placeholder="Tipo" name="tipo" required value=<%=request.getParameter("tipo")%>>
                 </div>
-                <textarea name="descripcion" rows="10" cols="40" style="width: 97%; margin: 10px;" placeholder=<%=request.getParameter("descripcion")%>><%=request.getParameter("descripcion")%></textarea>
-                <input value=<%=request.getParameter("costo")%> type="number" name="costo" step="0.01" min="0" style="width: 97%; margin: 10px;" placeholder=<%=request.getParameter("costo")%> >
+                <textarea name="descripcion" rows="10" cols="40" style="width: 97%; margin: 10px;" placeholder="Descripcion" required><%=request.getParameter("descripcion")%></textarea>
+                <input value=<%=request.getParameter("costo")%> type="number" name="costo" step="0.01" min="0" style="width: 97%; margin: 10px;" placeholder="Costo" required>
                 <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0);">
                     <select name="orden">
                         <% String orden = request.getParameter("orden");
@@ -107,29 +129,29 @@
                 <button class="draw" type="submit" name="gen">Modificar</button>
                 <%
 
-                                if (!(request.getParameter("gen") == null) && !(request.getParameter("nombre") == null) && !(request.getParameter("tipo") == null) && !(request.getParameter("descripcion") == null) && !(request.getParameter("costo") == null) && !(request.getParameter("orden") == "0")) {
-                                    boolean ordenboo = false;
+                            if (!(request.getParameter("gen") == null)) {
+                                boolean ordenboo = false;
 
-                                    double costo = Double.parseDouble(request.getParameter("costo"));
-                                    if (request.getParameter("orden").equals("Si")) {
-                                        ordenboo = true;
-                                    } else {
-                                        ordenboo = false;
-                                    }
-                                    String nombre = request.getParameter("nombre");
-                                    String descripcion = request.getParameter("descripcion");
-                                    String tipo = request.getParameter("tipo");
-                                    int codigod = Integer.parseInt(codigoExamen);
-                                    ex.actualizarExamen_laboratorio(nombre, descripcion, ordenboo, costo, tipo, codigod);
-                                    response.sendRedirect("ModificarExamen.jsp");
-                                    
+                                double costo = Double.parseDouble(request.getParameter("costo"));
+                                if (request.getParameter("orden").equals("Si")) {
+                                    ordenboo = true;
+                                } else {
+                                    ordenboo = false;
                                 }
+                                String nombre = request.getParameter("nombre");
+                                String descripcion = request.getParameter("descripcion");
+                                String tipo = request.getParameter("tipo");
+                                int codigod = Integer.parseInt(codigoExamen);
+                                ex.actualizarExamen_laboratorio(nombre, descripcion, ordenboo, costo, tipo, codigod);
+                                response.sendRedirect("ModificarExamen.jsp");
+
                             }
-
                         }
-                    } catch (Exception e) {
 
-                    }%>
+                    }
+                } catch (Exception e) {
+                %><h3>Error al modificar el Examen</h3><%
+     }%>
             </div>
 
         </form>

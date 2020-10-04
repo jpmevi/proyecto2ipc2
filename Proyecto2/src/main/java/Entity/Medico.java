@@ -10,6 +10,7 @@ import Encrypt.Encriptar;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -256,6 +257,49 @@ public class Medico {
 
         } catch (Exception e) {
             return null;
+        }
+
+    }
+    
+    
+    
+    public ResultSet buscarMedico(String codigo) {
+        try {
+            String query = "SELECT* FROM MEDICO WHERE codigo LIKE '%"+codigo+"%'";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    
+     public void actualizarMedico(String codigo, String nombre, String colegiado, String dpi, String telefono, String correo, LocalTime hora_entrada, LocalTime hora_salida, LocalDate fecha_inicio, String password) throws SQLException{
+          
+        String query = "UPDATE MEDICO SET nombre=?, colegiado=?, dpi=?, telefono=?, correo=?, hora_entrada=?, hora_salida=?, fecha_inicio=?, password=? WHERE codigo=?";
+
+        try { 
+            //Se establecen los parametros del PreparedStament
+
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            
+            st.setString(10,codigo);
+            st.setString(1,nombre);
+            st.setString(2, colegiado);
+            st.setString(3, dpi);
+            st.setString(4, telefono);
+            st.setString(5, correo);
+            st.setTime(6, Time.valueOf(hora_entrada));
+            st.setTime(7, Time.valueOf(hora_salida));
+             st.setDate(8, Date.valueOf(fecha_inicio));
+            st.setString(9, Encriptar.encriptar(password));
+            //Ejecuta el insert
+            st.executeUpdate();
+            st.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e);
         }
 
     }

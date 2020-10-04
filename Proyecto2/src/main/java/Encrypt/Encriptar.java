@@ -22,4 +22,8 @@ public class Encriptar {
         byte[] decode = Base64.getDecoder().decode(s.getBytes());
         return new String(decode, "utf-8");
     }
+
+    public static String encriptar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

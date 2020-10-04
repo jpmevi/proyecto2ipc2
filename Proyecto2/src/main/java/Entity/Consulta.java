@@ -69,9 +69,9 @@ public class Consulta {
         }
 
     }
-     public ResultSet buscarConsulta() {
+     public ResultSet buscarConsulta(String nombre) {
         try {
-            String query = "SELECT* FROM CONSULTA";
+            String query = "SELECT* FROM CONSULTA WHERE ESPECIALIDAD_nombre LIKE '%"+nombre+"%'";
             PreparedStatement st = Conexion.getConnection().prepareStatement(query);
             ResultSet rs = st.executeQuery();
             return rs;

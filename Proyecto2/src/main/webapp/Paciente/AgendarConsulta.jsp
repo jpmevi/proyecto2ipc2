@@ -53,7 +53,6 @@
                             <%if (!(request.getParameter("cita") == null) && ((request.getParameter("atributo") != "No existen horas disponibles en esa fecha") || (request.getParameter("atributo") != "No ha verificado") || (request.getParameter("atributo") != "Seleccione Hora:"))) {
                                     try {
                                         String fecha = String.valueOf(session.getAttribute("Fecha"));
-                                        JOptionPane.showMessageDialog(null, String.valueOf(session.getAttribute("Paciente")));
                                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                                         LocalDate localDate = LocalDate.parse(fecha, formatter);
 

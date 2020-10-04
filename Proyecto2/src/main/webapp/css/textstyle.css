@@ -178,20 +178,18 @@ body {
     display: flex;
 
 }
+
 body .dribbble {
     position: fixed;
     display: block;
     right: 24px;
     bottom: 24px;
 }
-body .dribbble img {
-    display: block;
-    width: 76px;
-}
+
 
 .caja{
     position: absolute;
-    width: 50%;
+    width: 80%;
     top: 10%;
     left: 50%;
     background-color: #051fa2; 
