@@ -9,6 +9,10 @@ import DataBase.Conexion;
 import Encrypt.Encriptar;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,6 +30,9 @@ public class Administrador {
         this.dpi = dpi;
         this.password = password;
         insertarAdministrador();
+    }
+    public Administrador(){
+        
     }
 
     public String getCodigo() {
@@ -74,13 +81,47 @@ public class Administrador {
             st.setString(1, getCodigo());
             st.setString(2, getNombre());
             st.setString(3, getDpi());
-            st.setString(4,Encriptar.encriptar( getPassword()));
+            st.setString(4, Encriptar.encriptar(getPassword()));
 
             // execute the preparedstatement insert
             st.execute();
             st.close();
         } catch (Exception e) {
             // log exception
+        }
+
+    }
+    
+    public ResultSet buscarAdmin(String codigo) {
+        try {
+            String query = "SELECT* FROM ADMINISTRADOR WHERE codigo LIKE '%"+codigo+"%'";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+     public void actualizarAdmin(String codigo, String nombre, String dpi, String password) throws SQLException{
+          
+        String query = "UPDATE ADMINISTRADOR SET nombre=?, dpi=?, password=? WHERE codigo=?";
+
+        try { 
+            //Se establecen los parametros del PreparedStament
+
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            
+            st.setString(4, codigo);
+            st.setString(1,nombre);
+            st.setString(2, dpi);
+            st.setString(3, Encriptar.encriptar(password));
+            //Ejecuta el insert
+            st.executeUpdate();
+            st.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e);
         }
 
     }
