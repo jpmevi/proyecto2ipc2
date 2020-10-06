@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,7 +19,7 @@ import java.time.LocalTime;
  */
 public class Informe_Consulta {
 
-    private String codigo;
+
     private String descripcion;
     private LocalDate fecha;
     private LocalTime hora;
@@ -26,8 +27,8 @@ public class Informe_Consulta {
     private String PACIENTE_codigo;
     private String MEDICO_codigo;
 
-    public Informe_Consulta(String codigo, String descripcion, LocalDate fecha, LocalTime hora, int CONSULTA_codigo, String PACIENTE_codigo, String MEDICO_codigo) {
-        this.codigo = codigo;
+    public Informe_Consulta( String descripcion, LocalDate fecha, LocalTime hora, int CONSULTA_codigo, String PACIENTE_codigo, String MEDICO_codigo) {
+
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.hora = hora;
@@ -37,13 +38,10 @@ public class Informe_Consulta {
         insertarInforme_Consulta();
     }
 
-    public String getCodigo() {
-        return codigo;
+    public Informe_Consulta(){
+        
     }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
+    
 
     public String getDescripcion() {
         return descripcion;
@@ -107,7 +105,7 @@ public class Informe_Consulta {
         try {
             // set all the preparedstatement parameters
             PreparedStatement st = Conexion.getConnection().prepareStatement(query);
-            st.setString(1, getCodigo());
+            st.setInt(1, 0);
             st.setString(2, getDescripcion());
             st.setDate(3, Date.valueOf(getFecha()));
             st.setTime(4, Time.valueOf(getHora()));
@@ -115,11 +113,13 @@ public class Informe_Consulta {
             st.setString(6, getPACIENTE_codigo());
             st.setString(7, getMEDICO_codigo());
 
+
             // execute the preparedstatement insert
             st.execute();
+
             st.close();
         } catch (Exception e) {
-            // log exception
+                                    JOptionPane.showMessageDialog(null, e);
         }
 
     }

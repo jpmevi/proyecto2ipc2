@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +22,7 @@ import javax.swing.JOptionPane;
  * @author potz
  */
 public class Laboratorista {
+
     private String codigo;
     private String nombre;
     private String registro;
@@ -39,11 +42,17 @@ public class Laboratorista {
         this.correo = correo;
         this.fecha_inicio = fecha_inicio;
         this.password = password;
-        this.EXAMEN_codigo=EXAMEN_codigo;
+        this.EXAMEN_codigo = EXAMEN_codigo;
         insertarLaboratorista();
     }
-    public Laboratorista(){
-        
+    
+    public Laboratorista(String codigo, LocalDate fecha_inicio){
+        this.fecha_inicio=fecha_inicio; 
+        this.codigo=codigo;
+    }
+
+    public Laboratorista() {
+
     }
 
     public String getEXAMEN_codigo() {
@@ -117,9 +126,8 @@ public class Laboratorista {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
-    public void insertarLaboratorista()  {
+
+    public void insertarLaboratorista() {
 
         String query = "INSERT INTO LABORATORISTA ("
                 + " codigo,"
@@ -153,11 +161,10 @@ public class Laboratorista {
         }
 
     }
-    
-    
+
     public ResultSet buscarLaboratorista(String codigo) {
         try {
-            String query = "SELECT* FROM LABORATORISTA WHERE codigo LIKE '%"+codigo+"%'";
+            String query = "SELECT L.*,E.nombre AS examen,E.costo,E.orden,E.codigo AS codigoex  FROM LABORATORISTA L INNER JOIN EXAMEN E ON L.EXAMEN_codigo=E.codigo WHERE L.codigo LIKE '%" + codigo + "%'";
             PreparedStatement st = Conexion.getConnection().prepareStatement(query);
             ResultSet rs = st.executeQuery();
             return rs;
@@ -167,17 +174,18 @@ public class Laboratorista {
         }
 
     }
-     public void actualizarLaboratorista(String codigo, String nombre, String registro, String dpi, String telefono, String correo, LocalDate fecha_inicio, String password, String EXAMEN_codigo) throws SQLException{
-          
+
+    public void actualizarLaboratorista(String codigo, String nombre, String registro, String dpi, String telefono, String correo, LocalDate fecha_inicio, String password, String EXAMEN_codigo) throws SQLException {
+
         String query = "UPDATE LABORATORISTA SET nombre=?, registro=?, DPI=?, telefono=?, correo=?, fecha_inicio=?, password=?, EXAMEN_codigo=? WHERE codigo=?";
 
-        try { 
+        try {
             //Se establecen los parametros del PreparedStament
 
             PreparedStatement st = Conexion.getConnection().prepareStatement(query);
-            
-            st.setString(9,codigo);
-            st.setString(1,nombre);
+
+            st.setString(9, codigo);
+            st.setString(1, nombre);
             st.setString(2, registro);
             st.setString(3, dpi);
             st.setString(4, telefono);
@@ -189,8 +197,87 @@ public class Laboratorista {
             st.executeUpdate();
             st.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,e);
+            JOptionPane.showMessageDialog(null, e);
         }
 
     }
+
+    public ResultSet obtenerDias(String codigo) {
+        try {
+            String query = "SELECT* FROM DIAS_TRABAJO WHERE LABORATORISTA_codigo='" + codigo + "'";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public String[] obtenerHorasDisponibles() {
+        //Obtenemos la diferencia en milisegundos
+
+        //Convertimos la diferencia en horas
+
+
+        //Obtenemos la hora inicial y final
+
+        //Lo convertimos a int
+        int hora_inicio = 0;
+        int hora_final = 23;
+
+        //Array para guardar las horas entre el intervalo
+        String[] guardarHoras =new String[23];
+        //Contador para array
+        int contador = 0;
+
+        //Se van guardando las hora entre el intervalo
+        for (int i = hora_inicio; i < hora_final; i++) {
+            guardarHoras[contador] = String.valueOf(i);
+            contador++;
+        }
+
+        return guardarHoras;
+    }
+
+    public ResultSet citasExamen(String hora) {
+        String query = "SELECT* FROM CITA_EXAMEN WHERE hora=? AND fecha=? AND LABORATORISTA_codigo=?";
+
+        try {
+            //Se establecen los parametros del PreparedStament
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            int horaEntera = Integer.valueOf(hora);
+            st.setTime(1, Time.valueOf(LocalTime.of(horaEntera, 0)));
+            st.setDate(2,Date.valueOf( getFecha_inicio()));
+            st.setString(3, getCodigo());
+
+            //Ejecuta el select
+            ResultSet rs = st.executeQuery();
+            return rs;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+        return null;
+    }
+    
+    public ArrayList citasExamenDisponibles() {
+        try {
+            int contador=0;
+            String[] horas = obtenerHorasDisponibles();
+            ArrayList horasDisponibles = new ArrayList();
+            
+            for (int i = 0; i < horas.length; i++) {
+                if (!citasExamen(horas[i]).next()) {
+
+                        horasDisponibles.add(LocalTime.of(Integer.valueOf(horas[i]),0) );
+                        contador++;
+                }
+            }
+            return horasDisponibles;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
 }

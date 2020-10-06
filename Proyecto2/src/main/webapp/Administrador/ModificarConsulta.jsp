@@ -23,10 +23,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="../css/header.css?3.0">
-        <link rel="stylesheet" href="../css/textstyle.css?4.0">
-        <link rel="stylesheet" href="../css/tablestyle.css?4.0">
-        <link rel="stylesheet" href="../css/button.css?2.0">
-        <link rel="stylesheet" href="../css/searchbar.css?8.0">
+        <link rel="stylesheet" href="../css/textstyle.css">
+        <link rel="stylesheet" href="../css/tablestyle.css">
+        <link rel="stylesheet" href="../css/button.css">
+        <link rel="stylesheet" href="../css/searchbar.css">
         <title>Modificar Examen</title>
     </head>
     <body>
@@ -41,28 +41,22 @@
                     </div>
                 </section>
                 <table class="containero" style="z-index: 99;">
-                    <%if (!(request.getParameter("filtro") == null)) {
-                            String filtro = request.getParameter("filtro");
-                            try {
-                                if (!filtro.equals("")) {
-                                    session.setAttribute("Filtro", request.getParameter("filtro"));
-                                }
-                            } catch (Exception e) {
-                            }
+                    <%String filtro;
+                        if (!(request.getParameter("filtro") == null)) {
+                            filtro = request.getParameter("filtro");
 
+                        }else{
+                        filtro="";
                         }
-                        String filtrofinal = String.valueOf(session.getAttribute("Filtro"));
                         try {
-                            if (filtrofinal.equals("null") ) {
-                                filtrofinal = "";
-                            } 
+                            
                             Consulta ex = new Consulta();
                             ResultSet rs = null;
-                            rs = ex.buscarConsulta(filtrofinal);
+                            rs = ex.buscarConsulta(filtro);
                             if (!(rs.next())) {
                     %><h4>No hay ninguna Consulta para modificar</h4><%
                     } else {
-                        rs = ex.buscarConsulta(filtrofinal);
+                        rs = ex.buscarConsulta(filtro);
 
                     %> <tr>
                         <th><h1>Codigo</h1></th>

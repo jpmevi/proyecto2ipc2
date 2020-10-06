@@ -27,7 +27,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="../css/header.css">
-        <link rel="stylesheet" href="../css/textstyle.css?2.0">
+        <link rel="stylesheet" href="../css/textstyle.css">
         <link rel="stylesheet" href="../css/tablestyle.css">
         <link rel="stylesheet" href="../css/select.css">
         <link rel="stylesheet" href="../css/button.css">
@@ -46,29 +46,23 @@
                 </section>
                 <table class="containero" style="z-index: 99;">
 
-                    <% 
+                    <% String filtro;
                         if (!(request.getParameter("filtro") == null)) {
-                            String filtro = request.getParameter("filtro");
-                            try {
-                                if (!filtro.equals("")) {
-                                    session.setAttribute("Filtro", request.getParameter("filtro"));
-                                }
-                            } catch (Exception e) {
-                            }
+                            filtro = request.getParameter("filtro");
 
+                        }else{
+                        filtro="";
                         }
-                        String filtrofinal = String.valueOf(session.getAttribute("Filtro"));
+                        
                         try {
-                            if (filtrofinal.equals("null")) {
-                                filtrofinal = "";
-                            }
+                            
                             Medico ex = new Medico("");
                             ResultSet rs = null;
-                            rs = ex.buscarMedico(filtrofinal);
+                            rs = ex.buscarMedico(filtro);
                             if (!(rs.next())) {
                     %><h4>No hay ningun Medico para modificar</h4><%
                     } else {
-                        rs = ex.buscarMedico(filtrofinal);
+                        rs = ex.buscarMedico(filtro);
 
                     %> <tr>
                         <th><h1>Codigo</h1></th>

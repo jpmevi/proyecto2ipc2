@@ -106,8 +106,8 @@ public class IntervaloHoras {
         try {
             //Se establecen los parametros del PreparedStament
            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
-            String horafix=hora+":00:00";
-            st.setTime(1, Time.valueOf(LocalTime.parse(horafix)));
+           int horaEntera=Integer.valueOf(hora);
+            st.setTime(1, Time.valueOf(LocalTime.of(horaEntera,0)));
             st.setDate(2, getFecha());
             st.setString(3, getCodigo());
 
@@ -131,7 +131,7 @@ public ArrayList citasMedicasDisponibles() {
             for (int i = 0; i < horas.length; i++) {
                 if (!citasMedicas(horas[i]).next()) {
                    
-                        horasDisponibles.add(horas[i] );
+                        horasDisponibles.add(LocalTime.of(Integer.valueOf(horas[i]),0) );
                         contador++;
                 }
             }

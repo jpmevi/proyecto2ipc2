@@ -35,7 +35,9 @@ public class Cita_Medica {
         insertarCita_Medica();
     }
 
-
+    public Cita_Medica(){
+        
+    }
 
     public LocalDate getFecha() {
         return fecha;
@@ -106,5 +108,44 @@ public class Cita_Medica {
 
     }
      
+     
+     public ResultSet buscarCitaMedicaMedico(String atributo, String valor, String codigopa) {
+        try {
+            String query = "SELECT CM.*,C.codigo AS consulta,P.codigo AS codp,C.ESPECIALIDAD_nombre,P.nombre AS paciente FROM CITA_MEDICA CM INNER JOIN PACIENTE P ON CM.PACIENTE_codigo=P.codigo INNER JOIN CONSULTA C ON CM.CONSULTA_codigo=C.codigo WHERE CM.MEDICO_codigo='"+ codigopa+"' && CM."+atributo+" LIKE '%" + valor + "%'";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+     
+     public ResultSet buscarCitaMedica(String atributo, String valor, String codigopa) {
+        try {
+            String query = "SELECT C.*,S.ESPECIALIDAD_nombre,M.nombre AS medico FROM CITA_MEDICA C INNER JOIN CONSULTA S ON C.CONSULTA_codigo=S.codigo INNER JOIN MEDICO M ON C.MEDICO_codigo=M.codigo WHERE C.PACIENTE_codigo='"+ codigopa+"' && C."+atributo+" LIKE '%" + valor + "%'";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+     
+     public void eliminarCita(String codigo){
+          String query = "DELETE FROM CITA_MEDICA WHERE codigo=?";
+          try {
+               PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+              st.setString(1, codigo);
+            st.execute();
+            st.close();
+         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, e);
+         }
+         
+     }
     
 }

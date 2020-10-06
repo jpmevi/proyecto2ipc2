@@ -76,7 +76,11 @@
                                                 response.sendRedirect("Administrador/AdministradorIndex.jsp");
                                                 break;
                                             }
-
+                                            case "MEDICO": {
+                                                session.setAttribute("Medico", request.getParameter("user"));
+                                                response.sendRedirect("Medico/MedicoIndex.jsp");
+                                                break;
+                                            }
                                         }
                                     } else {
                         %><h4 class="err" >Ingreso mal las credenciales</h4><%
@@ -85,7 +89,7 @@
 
                         %><h4 class="err" >Ingreso mal las credenciales</h4><%                     }
                  }%>
-                        <a href="#">Forgot Password?</a>
+                 <a href="Administrador/CrearPaciente.jsp">Forgot Password?</a>
                         <input type="submit" class="btn" value="Login">
                         </form>
                     </div>

@@ -19,7 +19,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="../css/header.css">
-        <link rel="stylesheet" href="../css/textstyle.css?">
+        <link rel="stylesheet" href="../css/textstyle.css">
         <link rel="stylesheet" href="../css/select.css">
         <link rel="stylesheet" href="../css/button.css">
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,500,700'>

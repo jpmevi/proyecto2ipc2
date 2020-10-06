@@ -4,6 +4,7 @@
     Author     : potz
 --%>
 
+<%@page import="DataBase.Conexion"%>
 <%@page import="java.sql.Time"%>
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="java.sql.ResultSet"%>
@@ -15,60 +16,55 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://kit.fontawesome.com/a81368914c.js"></script>
-        <link rel="stylesheet" href="../css/header.css">
+         <link rel="stylesheet" href="../css/header.css">
+        <link rel="stylesheet" href="../css/textstyle.css">
         <link rel="stylesheet" href="../css/tablestyle.css">
-        <link rel="stylesheet" href="../css/search.css">
         <link rel="stylesheet" href="../css/select.css">
+        <link rel="stylesheet" href="../css/button.css">
+        <link rel="stylesheet" href="../css/searchbar.css">
         <title>Buscar Medico</title>
     </head>
-    <body>
+    <body style="background: url('../img/pacienteindex.jpg') no-repeat top center / cover;">
         <%@include file="header.jsp" %>
-
         <form>
-            <div class="caja"style="z-index: 100;">
-                <div class="contenedorselect1"  >
-                    <div class="custom-select" style="width:200px;">
-                        <select name="atributo">
-                            <option value=0>TIPO DE BUSQUEDA:</option>
-                            <option value="Nombre">Nombre</option>
-                            <option value="Especialidad">Especialidad</option>
-                            <option value="Hora">Hora</option>
-                            <option value="Fecha">Fecha</option>
-                        </select>
-                    </div>
+            <div class="capa">
+            <div class="caja">
+                <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0);">
+                    <select name="atributo">
+                        <option value="codigo">TIPO DE BUSQUEDA:</option>
+                        <option value="nombre">Nombre</option>
+                        <option value="especialidad">Especialidad</option>
+                        <option value="hora">Hora</option>
+                        <option value="fecha">Fecha</option>
+                    </select>
                 </div>
-                <div class="wrap" >
-                    <div class="search" >
-                        <input type="text" class="searchTerm" placeholder="Buscar Medico por nombre" name="dato">
-                        <button type="submit" class="searchButton">
-                            <i class="fa fa-search"></i>
-                        </button>
+                <section class="webdesigntuts-workshop" >
+                    <div>
+                        <input type="search" placeholder="Filtrar por nombre?" name="filtro">		    	
+                        <button>Filtrar</button>
                     </div>
-                </div>
+                </section>
 
 
-                <% if (!(request.getParameter("dato") == null)) {
-                        try {
-                            ResultSet rs = null;
-                            String dato = request.getParameter("dato");
-                            Medico login = new Medico(dato);
-                            switch (request.getParameter("atributo")) {
-                                case "Nombre":
-                                    rs = login.buscarMedico("nombre", dato);
-                                    break;
-                                case "Especialidad":
-                                    rs = login.buscarEspecialidad("especialidad", dato);
-                                    break;
-                                case "Hora":
-                                    rs = login.buscarHora("especialidad", dato);
-                                    break;
-                            }
+                <%String filtro;
+                    if (!(request.getParameter("filtro") == null)) {
+                        filtro = request.getParameter("filtro");
+
+                    } else {
+                        filtro = "";
+                    }
+
+                    try {
+                        ResultSet rs = null;
+                        String dato = request.getParameter("dato");
+                        Medico login = new Medico(dato);
+                        rs = login.buscarMedico(request.getParameter("atributo"), filtro);
 
 
                 %>
-            </div>
-            <div class="tbla" style="z-index: 99;">
-                <table class="containero" style="z-index: 99;">
+        
+
+                 <table class="containero" style="z-index: 99;">
                     <tr>
                         <th><h1>Codigo</h1></th>
                         <th><h1>Nombre</h1></th>
@@ -104,18 +100,19 @@
                     %></table><%
                     } catch (Exception e) {
                     %><h4 class="err" >Ingreso mal las credenciales</h4><%                     }
-                        }%>
+                %>
 
 
 
-            </div>
 
 
-
+    </div>
+                </div>
         </form>
 
 
-
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script><script  src="../js/text.js"></script>
         <script type="text/javascript" src="../js/select.js"></script>
+
     </body>
 </html>

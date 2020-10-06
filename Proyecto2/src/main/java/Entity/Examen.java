@@ -91,7 +91,6 @@ public class Examen {
         try {
             // set all the preparedstatement parameters
              
-            JOptionPane.showMessageDialog(null, query);
             PreparedStatement st = Conexion.getConnection().prepareStatement(query);
             st.setInt(1, 0);
             st.setString(2, getNombre());

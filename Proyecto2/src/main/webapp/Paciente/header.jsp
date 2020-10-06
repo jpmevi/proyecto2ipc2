@@ -46,17 +46,17 @@
                                         <a href="#">Consulta</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="#">Examen</a>
+                                        <a href="BuscarLab.jsp">Examen</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="#">Link 3<i class="fas fa-caret-down"></i></a>
+                                        <a href="#">Ver cita<i class="fas fa-caret-down"></i></a>
                                         <div class="dropdown second">
                                             <ul>
                                                 <li class="dropdown-link">
-                                                    <a href="#">Link 1</a>
+                                                    <a href="VerCitaMedica.jsp">Medica</a>
                                                 </li>
                                                 <li class="dropdown-link">
-                                                    <a href="#">Link 2</a>
+                                                    <a href="VerCitaExamen.jsp">Examen</a>
                                                 </li>
                                                 <li class="dropdown-link">
                                                     <a href="#">Link 3</a>

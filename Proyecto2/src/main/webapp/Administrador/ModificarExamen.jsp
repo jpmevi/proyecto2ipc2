@@ -46,28 +46,22 @@
                 </section>
                 <table class="containero" style="z-index: 99;">
 
-                    <% if (!(request.getParameter("filtro") == null)) {
-                            String filtro = request.getParameter("filtro");
-                            try {
-                                if (!filtro.equals("")) {
-                                    session.setAttribute("Filtro", request.getParameter("filtro"));
-                                }
-                            } catch (Exception e) {
-                            }
+                    <% String filtro;
+                        if (!(request.getParameter("filtro") == null)) {
+                            filtro = request.getParameter("filtro");
 
+                        }else{
+                        filtro="";
                         }
-                        String filtrofinal = String.valueOf(session.getAttribute("Filtro"));
                         try {
-                            if (filtrofinal.equals("null")) {
-                                filtrofinal = "";
-                            }
+                            
                             Examen ex = new Examen("");
                             ResultSet rs = null;
-                            rs = ex.buscarExamen(filtrofinal);
+                            rs = ex.buscarExamen(filtro);
                             if (!(rs.next())) {
                     %><h4>No hay ningun Examen para modificar</h4><%
                     } else {
-                        rs = ex.buscarExamen(filtrofinal);
+                        rs = ex.buscarExamen(filtro);
 
                     %> <tr>
                         <th><h1>Codigo</h1></th>
