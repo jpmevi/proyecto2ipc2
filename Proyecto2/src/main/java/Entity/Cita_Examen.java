@@ -6,6 +6,7 @@
 package Entity;
 
 import DataBase.Conexion;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -23,12 +24,12 @@ public class Cita_Examen {
 
     private LocalDate fecha;
     private LocalTime hora;
-    private String orden_medico;
+    private InputStream orden_medico;
     private String PACIENTE_codigo;
     private String EXAMEN_codigo;
     private String LABORATORISTA_codigo;
 
-    public Cita_Examen(LocalDate fecha, LocalTime hora, String orden_medico, String PACIENTE_codigo, String EXAMEN_codigo, String LABORATORISTA_codigo) {
+    public Cita_Examen(LocalDate fecha, LocalTime hora, InputStream orden_medico, String PACIENTE_codigo, String EXAMEN_codigo, String LABORATORISTA_codigo) {
         this.fecha = fecha;
         this.hora = hora;
         this.orden_medico = orden_medico;
@@ -56,11 +57,11 @@ public Cita_Examen() {
         this.hora = hora;
     }
 
-    public String getOrden_medico() {
+    public InputStream getOrden_medico() {
         return orden_medico;
     }
 
-    public void setOrden_medico(String orden_medico) {
+    public void setOrden_medico(InputStream orden_medico) {
         this.orden_medico = orden_medico;
     }
 
@@ -105,7 +106,7 @@ public Cita_Examen() {
             st.setInt(1, 0);
             st.setDate(2, Date.valueOf(getFecha()));
             st.setTime(3, Time.valueOf(getHora()));
-            st.setString(4, getOrden_medico());
+            st.setBlob(4, getOrden_medico());
             st.setString(5, getPACIENTE_codigo());
             st.setString(6, getEXAMEN_codigo());
             st.setString(7, getLABORATORISTA_codigo());

@@ -144,7 +144,6 @@
                 <button class="draw" type="submit" name="gen">Modificar</button>
                 <%
                     if (!(request.getParameter("gen") == null)) {
-                        JOptionPane.showMessageDialog(null, "si");
                         String nombre = request.getParameter("nombre");
                         int telefono = Integer.parseInt(request.getParameter("telefono"));
                         String fecha = String.valueOf(request.getParameter("fecha"));

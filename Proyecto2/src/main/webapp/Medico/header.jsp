@@ -35,12 +35,21 @@
                                     </li>
                             </div>
                         </li>
+                        <li class="nav-link" style="--i: .6s">
+                            <a href="#">Orden<i class="fas fa-caret-down"></i></a>
+                            <div class="dropdown">
+                                <ul>
+                                    <li class="dropdown-link">
+                                        <a href="GenerarOrden.jsp">Generar Orden</a>
+                                    </li>
+                            </div>
+                        </li>
                         <li class="nav-link" style="--i: .85s">
                             <a href="#">Citas<i class="fas fa-caret-down"></i></a>
                             <div class="dropdown">
                                 <ul>
                                     <li class="dropdown-link">
-                                        <a href="#">Agendar Cita</a>
+                                        <a href="BuscarPaciente.jsp">Agendar Cita</a>
                                     </li>
                                     <li class="dropdown-link">
                                         <a href="BuscarLab.jsp">Cancelar Cita</a>

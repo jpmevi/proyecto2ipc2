@@ -14,6 +14,7 @@
 <!DOCTYPE html>
 <%String paciente = request.getParameter("paciente");
     String consulta = request.getParameter("consulta");
+    String codigo = request.getParameter("codigo");
     try {
         if (!paciente.equals("")) {
             session.setAttribute("Pac", request.getParameter("paciente"));
@@ -21,11 +22,15 @@
         if (!consulta.equals("")) {
             session.setAttribute("Consu", request.getParameter("consulta"));
         }
+        if (!codigo.equals("")) {
+            session.setAttribute("CM", request.getParameter("codigo"));
+        }
 
     } catch (Exception e) {
     }
     String codigoPaciennte = String.valueOf(session.getAttribute("Pac"));
     String codigoConsulta = String.valueOf(session.getAttribute("Consu"));
+    String codigoCM = String.valueOf(session.getAttribute("CM"));
 %>
 <html>
     <head>
@@ -94,7 +99,6 @@
                     </tr>
                     <%                        while (rs.next()) {
                     %>
-
                     <tr>
                         <td><h2><%= String.valueOf(rs.getObject("codigo"))%></h2></td>
                         <td><h2><%= String.valueOf(rs.getObject("fecha"))%></h2></td>
@@ -114,7 +118,7 @@
 
                     }
                 } catch (Exception e) {
-                %><h3>Medico </h3><%
+                %><h3>No hay ninguna cita</h3><%
                     }%>
 
 
@@ -124,16 +128,17 @@
                 %>
                 <label ><%=LocalTime.of(LocalTime.now().getHour(), LocalTime.now().getMinute())%></label>
                 <label ><%=LocalDate.now()%></label>
-                    <textarea id="subject" name="descripcion" placeholder="Descripcion.." required ></textarea>
-                <button class="draw" type="submit" name="gen">Modificar</button>
-                <%                  }  if (!(request.getParameter("gen") == null)) {
+                <textarea id="subject" name="descripcion" placeholder="Descripcion.." required ></textarea>
+                <button class="draw" type="submit" name="gen">Generar</button>
+                <%                  }
+                    if (!(request.getParameter("gen") == null)) {
                         int consultanum = Integer.valueOf(codigoConsulta);
-                        JOptionPane.showMessageDialog(null, codigoPaciennte);
                         Informe_Consulta ic = new Informe_Consulta(request.getParameter("descripcion"), LocalDate.now(), LocalTime.now(), consultanum, codigoPaciennte, String.valueOf(session.getAttribute("Medico")));
+                         cm.eliminarCita(codigoCM);
                         response.sendRedirect("GenerarInforme.jsp");
-                %><h3>Informe generado con exito</h3><%
-                        }
-                    %>
+
+                %><h3>Informe generado con exito</h3><%                    }
+                %>
             </div>
 
         </form>

@@ -7,6 +7,8 @@ package Entity;
 
 import DataBase.Conexion;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  *
@@ -24,9 +26,13 @@ public class Orden_Examen {
         this.PACIENTE_codigo = PACIENTE_codigo;
         this.MEDICO_codigo = MEDICO_codigo;
         this.EXAMEN_codigo = EXAMEN_codigo;
-        insertarOrden_Examen();
+        
     }
 
+    public Orden_Examen(){
+        
+    }
+    
     public String getDescripcion() {
         return descripcion;
     }
@@ -59,7 +65,7 @@ public class Orden_Examen {
         this.EXAMEN_codigo = EXAMEN_codigo;
     }
 
-    public void insertarOrden_Examen() {
+    public int insertarOrden_Examen() {
 
         String query = "INSERT INTO ORDEN_EXAMEN ("
                 + " codigo,"
@@ -70,7 +76,8 @@ public class Orden_Examen {
                 + " ?, ?,?,?,?)";
         try {
             // set all the preparedstatement parameters
-            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            int codigoOrden;
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             st.setInt(1, 0);
             st.setString(2, getDescripcion());
             st.setString(3, getPACIENTE_codigo());
@@ -78,9 +85,28 @@ public class Orden_Examen {
             st.setString(5, getEXAMEN_codigo());
             // execute the preparedstatement insert
             st.execute();
-            st.close();
+            ResultSet rs = st.getGeneratedKeys();
+            if (rs.next()) {
+                codigoOrden = rs.getInt(1);
+                st.close();
+                return codigoOrden;
+            }
+
         } catch (Exception e) {
             // log exception
+        }
+        return 0;
+    }
+    public ResultSet buscarOrden(String codigo, String valor) {
+        try {
+            String query = "SELECT O.*,E.nombre AS examen FROM ORDEN_EXAMEN O INNER JOIN EXAMEN E ON E.codigo=O.EXAMEN_codigo WHERE O.PACIENTE_codigo ='"+codigo+"' && O.codigo LIKE '%"+valor+"%'";
+
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
         }
 
     }

@@ -7,6 +7,7 @@ package Entity;
 
 import DataBase.Conexion;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  *
@@ -21,7 +22,9 @@ public class Especializacion {
         this.MEDICO_codigo = MEDICO_codigo;
         insertarEspecializacion();
     }
-
+public Especializacion(){
+    
+}
     public String getESCPECIALIDAD_nombre() {
         return ESCPECIALIDAD_nombre;
     }
@@ -57,6 +60,18 @@ public class Especializacion {
             // log exception
         }
 
+    }
+    
+    public ResultSet obtenerEspecializacion(String codigo){
+        try {
+            String query = "SELECT* FROM ESPECIALIZACION WHERE MEDICO_codigo='"+codigo+"'" ;
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
     }
     
 }

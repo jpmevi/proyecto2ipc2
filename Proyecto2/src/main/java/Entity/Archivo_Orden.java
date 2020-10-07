@@ -6,9 +6,11 @@
 package Entity;
 
 import DataBase.Conexion;
+import java.io.FileInputStream;
 import java.sql.Blob;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Time;
 
 /**
@@ -16,16 +18,19 @@ import java.sql.Time;
  * @author potz
  */
 public class Archivo_Orden {
-    private Blob archivo;
+    private FileInputStream archivo;
     private int ORDEN_EXAMEN_codigo;
 
-    public Archivo_Orden(Blob archivo, int ORDEN_EXAMEN_codigo) {
+    public Archivo_Orden(FileInputStream archivo, int ORDEN_EXAMEN_codigo) {
         this.archivo = archivo;
         this.ORDEN_EXAMEN_codigo = ORDEN_EXAMEN_codigo;
         insertarArchivo_Orden();
     }
 
-    public void setArchivo(Blob archivo) {
+    public Archivo_Orden(){
+        
+    }
+    public void setArchivo(FileInputStream archivo) {
         this.archivo = archivo;
     }
 
@@ -33,7 +38,7 @@ public class Archivo_Orden {
         this.ORDEN_EXAMEN_codigo = ORDEN_EXAMEN_codigo;
     }
 
-    public Blob getArchivo() {
+    public FileInputStream getArchivo() {
         return archivo;
     }
 
@@ -60,5 +65,20 @@ public class Archivo_Orden {
         }
 
     }
+    
+    public ResultSet buscarOrden(String codigo) {
+        try {
+            String query = "SELECT* FROM ARCHIVO_ORDEN WHERE ORDEN_EXAMEN_codigo='"+codigo+"'";
+
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+    
     
 }

@@ -191,4 +191,6 @@ public ArrayList citasMedicasDisponibles() {
         }
         return 0;
      }
+      
+       
 }

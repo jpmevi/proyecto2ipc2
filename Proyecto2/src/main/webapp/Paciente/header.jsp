@@ -91,14 +91,14 @@
                             </div>
                         </li>
                         <li class="nav-link" style="--i: 1.1s">
-                            <a href="#">Informacion<i class="fas fa-caret-down"></i></a>
+                            <a href="#">Ordenes<i class="fas fa-caret-down"></i></a>
                             <div class="dropdown">
                                 <ul>
                                     <li class="dropdown-link">
                                         <a href="BuscarMedico.jsp">Buscar medico</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="#">Historial medico</a>
+                                        <a href="VerOrdenExamen.jsp">Ver Ordenes</a>
                                     </li>
                                     <li class="dropdown-link">
                                         <a href="#">Link 3<i class="fas fa-caret-down"></i></a>
