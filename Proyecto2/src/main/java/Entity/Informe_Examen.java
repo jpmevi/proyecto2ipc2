@@ -8,6 +8,7 @@ package Entity;
 import DataBase.Conexion;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -36,7 +37,9 @@ public class Informe_Examen {
         this.LABORATORISTA_codigo = LABORATORISTA_codigo;
         insertarInforme_Examen();
     }
-
+public Informe_Examen(){
+    
+}
     public String getCodigo() {
         return codigo;
     }
@@ -119,6 +122,19 @@ public class Informe_Examen {
             st.close();
         } catch (Exception e) {
             // log exception
+        }
+
+    }
+    
+    public ResultSet buscarInforme(String codigo) {
+        try {
+            String query = "SELECT* FROM INFORME_EXAMEN WHERE PACIENTE_codigo='"+codigo+"'";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
         }
 
     }

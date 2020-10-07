@@ -52,7 +52,7 @@
                                         <a href="BuscarPaciente.jsp">Agendar Cita</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="BuscarLab.jsp">Cancelar Cita</a>
+                                        <a href="CancelarCIta.jsp">Cancelar Cita</a>
                                     </li>
                                 </ul>
                             </div>
@@ -62,16 +62,16 @@
                             <div class="dropdown">
                                                         <ul>
                                                             <li class="dropdown-link">
-                                                                <a href="#">Historial Medico</a>
+                                                                <a href="HistorialMedica.jsp">Historial Medico</a>
                                                             </li>
                                                             <li class="dropdown-link">
-                                                                <a href="#">Citas Agendadas en intervalo</a>
+                                                                <a href="CitasAgendadasIntervalo.jsp">Citas Agendadas en intervalo</a>
                                                             </li>
                                                             <li class="dropdown-link">
-                                                                <a href="#">Citas Agendadas ese dia</a>
+                                                                <a href="CitasAgendadasDia.jsp">Citas Agendadas ese dia</a>
                                                             </li>
                                                             <li class="dropdown-link">
-                                                                <a href="#">Pacientes con mas informes</a>
+                                                                <a href="PacienteMasInformes.jsp">Pacientes con mas informes</a>
                                                             </li>
                                                             
                                                             <div class="arrow"></div>

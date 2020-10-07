@@ -121,7 +121,30 @@ public class Cita_Medica {
         }
 
     }
-     
+      public ResultSet buscarIntervalo(LocalDate fechainicio, LocalDate fechafinal, String codigo) {
+        try {
+            String query = "SELECT CM.*,C.codigo AS consulta,P.codigo AS codp,C.ESPECIALIDAD_nombre,P.nombre AS paciente FROM CITA_MEDICA CM INNER JOIN PACIENTE P ON CM.PACIENTE_codigo=P.codigo INNER JOIN CONSULTA C ON CM.CONSULTA_codigo=C.codigo WHERE CM.MEDICO_codigo='"+codigo+"' && CM.fecha BETWEEN '"+fechainicio+"' AND '"+fechafinal+"'";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+      public ResultSet buscarDia(String codigo) {
+        try {
+            String query = "SELECT CM.* FROM CITA_MEDICA CM WHERE CM.MEDICO_codigo='"+codigo+"' && CM.fecha='"+LocalDate.now()+"'";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
      public ResultSet buscarCitaMedica(String atributo, String valor, String codigopa) {
         try {
             String query = "SELECT C.*,S.ESPECIALIDAD_nombre,M.nombre AS medico FROM CITA_MEDICA C INNER JOIN CONSULTA S ON C.CONSULTA_codigo=S.codigo INNER JOIN MEDICO M ON C.MEDICO_codigo=M.codigo WHERE C.PACIENTE_codigo='"+ codigopa+"' && C."+atributo+" LIKE '%" + valor + "%'";

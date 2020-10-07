@@ -8,6 +8,7 @@ package Entity;
 import DataBase.Conexion;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -124,4 +125,29 @@ public class Informe_Consulta {
 
     }
 
+    
+    public ResultSet buscarPacientesInforme(LocalDate fechainicio, LocalDate fechafinal) {
+        try {
+            String query = "SELECT COUNT(*) AS informes,P.* FROM INFORME_CONSULTA I INNER JOIN PACIENTE P ON P.codigo=I.PACIENTE_codigo WHERE I.fecha BETWEEN '"+fechainicio+"' AND '"+fechafinal+"' GROUP BY P.codigo ORDER BY informes ASC";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+    public ResultSet buscarInforme(String codigo) {
+        try {
+            String query = "SELECT* FROM INFORME_CONSULTA WHERE PACIENTE_codigo='"+codigo+"'";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
 }
