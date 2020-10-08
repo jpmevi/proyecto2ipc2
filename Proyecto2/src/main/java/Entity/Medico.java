@@ -303,5 +303,20 @@ public class Medico {
         }
 
     }
+     
+     public void eliminarMedico(String codigo){
+          String query = "DELETE FROM MEDICO WHERE codigo=?";
+          try {
+               PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+              st.setString(1, codigo);
+            st.execute();
+            st.close();
+         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, e);
+         }
+         
+     }
+ 
+
 
 }

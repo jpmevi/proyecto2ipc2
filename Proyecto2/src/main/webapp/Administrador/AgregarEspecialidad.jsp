@@ -1,13 +1,12 @@
 <%-- 
-    Document   : HistorialMedica
-    Created on : Oct 7, 2020, 7:35:26 AM
+    Document   : AgregarEspecialidad
+    Created on : Oct 8, 2020, 5:14:47 AM
     Author     : potz
 --%>
 
-<%@page import="Entity.Paciente"%>
+<%@page import="Entity.Medico"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,16 +19,24 @@
         <link rel="stylesheet" href="../css/select.css">
         <link rel="stylesheet" href="../css/button.css">
         <link rel="stylesheet" href="../css/searchbar.css">
-        <title>Historial Medico</title>
+        <title>Agregar Especialidad</title>
     </head>
     <body style="background: url('../img/pacienteindex.jpg') no-repeat top center / cover;">
         <%@include file="header.jsp" %>
         <form>
             <div class="caja">
-                
+                <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0);">
+                    <select name="atributo">
+                        <option value="codigo">TIPO DE BUSQUEDA:</option>
+                        <option value="nombre">Nombre</option>
+                        <option value="especialidad">Especialidad</option>
+                        <option value="hora">Hora</option>
+                        <option value="fecha">Fecha</option>
+                    </select>
+                </div>
                 <section class="webdesigntuts-workshop" >
                     <div>
-                        <input type="search" placeholder="Filtrar por codigo?" name="filtro">		    	
+                        <input type="search" placeholder="Filtrar por nombre?" name="filtro">		    	
                         <button>Filtrar</button>
                     </div>
                 </section>
@@ -46,8 +53,10 @@
                     try {
                         ResultSet rs = null;
                         String dato = request.getParameter("dato");
-                        Paciente login = new Paciente();
-                        rs = login.buscarPaciente(filtro);
+                        Medico login = new Medico(dato);
+                        rs = login.buscarMedico(request.getParameter("atributo"), filtro);
+
+
                 %>
         
 
@@ -55,12 +64,12 @@
                     <tr>
                         <th><h1>Codigo</h1></th>
                         <th><h1>Nombre</h1></th>
-                        <th><h1>Sexo</h1></th>
-                        <th><h1>Fecha Nacimiento</h1></th>
-                        <th><h1>DPI</h1></th>
-                        <th><h1>Telefono</h1></th>
-                        <th><h1>Peso</h1></th>
-                        <th><h1>Historial Medico</h1></th>
+                        <th><h1>Hora Entrada</h1></th>
+                        <th><h1>Hora Salida</h1></th>
+                        <th><h1>Fecha</h1></th>
+                        <th><h1>Especialidad</h1></th>
+                        <th><h1>Costo</h1></th>
+                        <th><h1>Agregar Especialidad</h1></th>
 
                     </tr>
                     <%      while (rs.next()) {
@@ -70,14 +79,14 @@
                     <tr>
                         <td><h2><%= String.valueOf(rs.getObject("codigo"))%></h2></td>
                         <td><h2><%= String.valueOf(rs.getObject("nombre"))%></h2></td>
-                        <td><h2><%= String.valueOf(rs.getObject("sexo"))%></h2></td>
-                        <td><h2><%= String.valueOf(rs.getObject("fecha_nacimiento"))%></h2></td>
-                        <td><h2><%= String.valueOf(rs.getObject("dpi"))%></h2></td>
-                        <td><h2><%= String.valueOf(rs.getObject("telefono"))%></h2></td>
-                        <td><h2><%= String.valueOf(rs.getObject("peso"))%></h2></td>
+                        <td><h2><%= String.valueOf(rs.getObject("hora_entrada"))%></h2></td>
+                        <td><h2><%= String.valueOf(rs.getObject("hora_salida"))%></h2></td>
+                        <td><h2><%= String.valueOf(rs.getObject("fecha_inicio"))%></h2></td>
+                        <td><h2><%= String.valueOf(rs.getObject("especialidad_nombre"))%></h2></td>
+                        <td><h2><%= String.valueOf(rs.getObject("costo"))%></h2></td>
                         <td>
 
-                            <h2><a href="VerHistorial.jsp?codigo=<%=rs.getString("codigo")%>">Ver Historial</a></h2>
+                            <h2><a href="ConfirmarEspecialidad.jsp?codigo=<%=rs.getString("codigo")%>&especialidad=<%=rs.getString("especialidad_nombre")%>">Agregar especialidad</a></h2>
                         </td>
                     </tr>
 
@@ -86,7 +95,7 @@
                         }
                     %></table><%
                     } catch (Exception e) {
-                    %><h4 class="err" >No hay ningun historial de informe</h4><%                     }
+                    %><h4 class="err" >Ingreso mal las credenciales</h4><%                     }
                 %>
 
 
@@ -94,7 +103,6 @@
 
 
     </div>
-                </div>
         </form>
 
 
@@ -103,4 +111,3 @@
 
     </body>
 </html>
-

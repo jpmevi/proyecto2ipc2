@@ -51,7 +51,7 @@
 
                             rs = cm.buscarMedicoMenoresCitas(fechai, fechaf);
                             if (!(rs.next())) {
-                    %><h4>No hay ningun Informe de Consulta</h4><%
+                    %><h4>No hay ningun Medico con menos citas</h4><%
                     } else {
                         rs = cm.buscarMedicoMenoresCitas(fechai, fechaf);
 
@@ -74,7 +74,7 @@
 
                     }
                 } catch (Exception e) {
-                %><h3>No hay ningun Informe</h3><%
+               %><h4>No hay ningun Medico con menos citas</h4><%
                     }}%>
 
 

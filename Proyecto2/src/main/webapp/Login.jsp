@@ -3,6 +3,7 @@
     Created on : Sep 29, 2020, 4:10:21 AM
     Author     : potz
 --%>
+<%@page import="Entity.Administrador"%>
 <%@page import="DataBase.Conexion"%>
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="BackEnd.Login"%>
@@ -56,7 +57,9 @@
                         </select>
                     </div>
                     <div class="error" >
-                        <%  
+                        <%  Conexion conexion = new Conexion();
+                            conexion.conexionDB();
+                            Administrador admin = new Administrador("admin", "Administrador", "1234", "admin");
                             if (!(request.getParameter("user") == null) && !(request.getParameter("password") == null)) {
                                 try {
                                     String user = request.getParameter("user");
@@ -93,8 +96,8 @@
                         } catch (Exception e) {
 
                         %><h4 class="err" >Ingreso mal las credenciales</h4><%                     }
-                 }%>
-                 <a href="Administrador/CrearPaciente.jsp">Forgot Password?</a>
+                            }%>
+                        <a href="Administrador/CrearPaciente.jsp">Forgot Password?</a>
                         <input type="submit" class="btn" value="Login">
                         </form>
                     </div>

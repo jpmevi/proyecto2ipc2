@@ -52,7 +52,7 @@
 
                             rs = cm.buscarPacienteIngresos(fechai, fechaf);
                             if (!(rs.next())) {
-                    %><h4>No hay ningun Informe de Consulta</h4><%
+                   %><h4>No hay ningun Paciente con ingresos</h4><%
                     } else {
                           rs = cm.buscarPacienteIngresos(fechai, fechaf);
 
@@ -75,8 +75,8 @@
 
                     }
                 } catch (Exception e) {
-JOptionPane.showMessageDialog(null, e);
-                %><h3>No hay ningun Informe</h3><%
+
+                %><h4>No hay ningun Paciente con ingresos</h4><%
                     }}%>
 
 

@@ -25,7 +25,7 @@
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,500,700'>
         <title>Crear Laboratorista</title>
     </head>
-    <body>
+    <body style="background: url('../img/pacienteindex.jpg') no-repeat top center / cover;">
         <%@include file="header.jsp" %>
         <form>
             <div class="caja">
@@ -69,7 +69,6 @@
                         %><option value="0">No hay Examenes</option><%
                         } else {
                             rs = exa.buscarExamen("");
-                        %><option value="0">Seleccione Examen:</option><%
                             while (rs.next()) {
                         %><option value=<%=rs.getString("codigo")%>><%=rs.getString("nombre")%></option><%
                                 }

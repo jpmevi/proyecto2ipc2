@@ -23,6 +23,7 @@
         <title>Consulta Intervalo y Medico</title>
     </head>
     <body>
+        <%@include file="header.jsp" %>
         <form>
         <div class="caja">
             <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0);">

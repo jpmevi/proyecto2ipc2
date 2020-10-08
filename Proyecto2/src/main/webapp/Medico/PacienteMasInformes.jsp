@@ -60,7 +60,7 @@
                             }
                             rs = ic.buscarPacientesInforme(fechai, fechaf);
                             if (!(rs.next())) {
-                    %><h4>No hay ninguna cita medica</h4><%
+                    %><h4>No hay ningun informe con un paciente</h4><%
                     } else {
                         rs = ic.buscarPacientesInforme(fechai, fechaf);
 
@@ -88,7 +88,7 @@
 
                     }
                 } catch (Exception e) {
-                %><h3>Error con la cita</h3><%
+                   %><h4>No hay ningun informe con un paciente</h4><%
                     }}%>
             </div>
 

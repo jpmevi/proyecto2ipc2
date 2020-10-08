@@ -52,7 +52,7 @@
 
                             rs = cm.buscarInforme10Medicos(fechai, fechaf);
                             if (!(rs.next())) {
-                    %><h4>No hay ningun Informe de Consulta</h4><%
+                    %><h4>No hay ningun Medico con informe</h4><%
                     } else {
                          rs = cm.buscarInforme10Medicos(fechai, fechaf);
 
@@ -75,7 +75,7 @@
 
                     }
                 } catch (Exception e) {
-                %><h3>No hay ningun Informe</h3><%
+                   %><h4>No hay ningun Medico con informe</h4><%
                     }}%>
 
 

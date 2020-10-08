@@ -4,6 +4,7 @@
     Author     : potz
 --%>
 
+<%@page import="Encrypt.Encriptar"%>
 <%@page import="DataBase.Conexion"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="Entity.Administrador"%>
@@ -31,7 +32,7 @@
         <link rel="stylesheet" href="../css/searchbar.css">
         <title>Modificar Administrador</title>
     </head>
-    <body>
+    <body style="background: url('../img/pacienteindex.jpg') no-repeat top center / cover;">
         <%@include file="header.jsp" %>
         <form>
             <div class="caja">
@@ -78,6 +79,7 @@
 
                         <td>
                             <h2><a href="ModificarAdministrador.jsp?nombre=<%=rs.getString("nombre")%>&codigo=<%=rs.getString("codigo")%>&dpi=<%=rs.getString("dpi")%>&password=<%=rs.getString("password")%>">Modificar</a></h2>
+                           
                         </td>
                     </tr>
 
@@ -96,7 +98,7 @@
                     <input type="text" placeholder="Dpi" name="dpi" required value=<%=request.getParameter("dpi")%>>
                 </div>
                 <div class="inputAnimate">
-                    <input type="text" placeholder="Password" required name="password" value=<%=request.getParameter("password")%>>
+                    <input type="password" placeholder="Password" required name="password" value=<%=Encriptar.desencriptar( request.getParameter("password"))%>>
                 </div>
 
                 <button class="draw" type="submit" name="gen">Modificar</button>

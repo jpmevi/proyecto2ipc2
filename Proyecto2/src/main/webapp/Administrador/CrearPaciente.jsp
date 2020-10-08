@@ -20,7 +20,7 @@
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,500,700'>
         <title>Crear Paciente</title>
     </head>
-    <body>
+    <body style="background: url('../img/pacienteindex.jpg') no-repeat top center / cover;">
         <%@include file="header.jsp" %>
         <form>
             <div class="caja">
@@ -41,9 +41,6 @@
                     <input type="text" placeholder="Peso" name="peso" required>
                 </div>
                 <div class="inputAnimate">
-                    <input type="text" placeholder="Sangre" name="sangre" required>
-                </div>
-                <div class="inputAnimate">
                     <input type="text" placeholder="Correo" name="correo" required>
                 </div>
                 <div class="inputAnimate">
@@ -56,8 +53,22 @@
                     
                 </div>
                 <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0);">
+                    <select name="sangre">
+
+                        <option value="a+">Seleccione sangre:</option>
+                        <option value="a+" >A+</option>
+                        <option value="a-" >A-</option>
+                        <option value="b+" >B+</option>
+                        <option value="b-" >B-</option>
+                        <option value="ab+" >AB+</option>
+                        <option value="ab-" >AB-</option>
+                        <option value="o+" >O+</option>
+                        <option value="o-" >O-</option>
+                    </select>
+                </div>
+                <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0);">
                     <select name="sexo">
-                        <option value="0">Sexo:</option>
+                        <option value="Masculino">Sexo:</option>
                         <option value="Masculino">Hombre</option>
                         <option value="Femenino">Femenino</option>
                         <option value="Otro">Otro</option>

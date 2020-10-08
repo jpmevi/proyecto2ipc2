@@ -19,7 +19,7 @@
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,500,700'>
         <title>Crear Examen</title>
     </head>
-    <body>
+    <body style="background: url('../img/pacienteindex.jpg') no-repeat top center / cover;">
         <%@include file="header.jsp" %>
         <form>
             <div class="caja">
@@ -35,7 +35,7 @@
                  </div>
                 <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0);">
                     <select name="orden">
-                        <option value="0">Orden:</option>
+                        <option value="Si">Orden:</option>
                         <option value="Si">Si</option>
                         <option value="No">No</option>
                     </select>

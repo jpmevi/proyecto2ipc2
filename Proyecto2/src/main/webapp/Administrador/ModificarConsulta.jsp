@@ -27,9 +27,9 @@
         <link rel="stylesheet" href="../css/tablestyle.css">
         <link rel="stylesheet" href="../css/button.css">
         <link rel="stylesheet" href="../css/searchbar.css">
-        <title>Modificar Examen</title>
+        <title>Modificar Consulta</title>
     </head>
-    <body>
+    <body style="background: url('../img/pacienteindex.jpg') no-repeat top center / cover;">
         <%@include file="header.jsp" %>
         <form>
             <div class="caja">

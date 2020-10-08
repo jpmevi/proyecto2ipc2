@@ -29,6 +29,7 @@
         <title>Confirmar cita</title>
     </head>
     <body style="background: url('../img/pacienteindex.jpg') no-repeat top center / cover;">
+        <%@include file="header.jsp" %>
         <form action="../AgendarCita" enctype="multipart/form-data" method="post">
         <div class="caja">
             <% if (orden.equals("true")) {

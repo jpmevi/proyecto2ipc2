@@ -49,7 +49,7 @@
                             }
                             rs = cm.buscarInformeLab(String.valueOf(session.getAttribute("Laboratorista")), filtro);
                             if (!(rs.next())) {
-                    %><h4>No hay ninguna cita medica</h4><%
+                    %><h4>No hay ningun examen para el turno</h4><%
                     } else {
                         rs = cm.buscarInformeLab(String.valueOf(session.getAttribute("Laboratorista")), filtro);
 
@@ -79,7 +79,7 @@
 
                     }
                 } catch (Exception e) {
-                %><h3>No hay ningun Examen realizado</h3><%
+                %><h4>No hay ningun examen para el turno</h4><%
                     }%>
 
 

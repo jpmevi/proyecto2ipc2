@@ -38,7 +38,7 @@
                             }
                             rs = ie.buscarInformeUltimos5(String.valueOf(session.getAttribute("Paciente")));
                             if (!(rs.next())) {
-                    %><h4>No hay ninguna cita medica</h4><%
+                    %><h4>No hay ningun examen</h4><%
                     } else {
                         rs = ie.buscarInformeUltimos5(String.valueOf(session.getAttribute("Paciente")));
 
@@ -70,7 +70,7 @@
 
                     }
                 } catch (Exception e) {
-                %><h3>Error con la cita</h3><%
+                 %><h4>No hay ningun examen</h4><%
                     }%>
             </div>
 

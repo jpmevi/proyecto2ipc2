@@ -4,6 +4,7 @@
     Author     : potz
 --%>
 
+<%@page import="Encrypt.Encriptar"%>
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="Entity.Examen"%>
 <%@page import="DataBase.Conexion"%>
@@ -41,7 +42,7 @@
         <link rel="stylesheet" href="../css/searchbar.css">
         <title>Modificar Laboratorista</title>
     </head>
-    <body>
+    <body style="background: url('../img/pacienteindex.jpg') no-repeat top center / cover;">
         <%@include file="header.jsp" %>
         <form>
             <div class="caja">
@@ -124,8 +125,8 @@
                     <input type="text" placeholder="Correo" required name="correo" value=<%=request.getParameter("correo")%>>
                 </div>
 
-                <div class="inputAnimate">
-                    <input type="text" placeholder="Password" required name="password" value=<%=request.getParameter("password")%>>
+               <div class="inputAnimate">
+                    <input type="password" placeholder="Password" required name="password" value=<%=Encriptar.desencriptar( request.getParameter("password"))%>>
                 </div>
                 <h4>Fecha de Inicio:</h4>
                 <div class="inputAnimate">

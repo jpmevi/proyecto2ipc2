@@ -82,7 +82,7 @@
                 </div>
 
                 <div class="log-sign" style="--i: 1.8s">
-                    <a href="#" class="btn solid">Cerrar Sesion</a>
+                    <a href="../Login.jsp" class="btn solid">Cerrar Sesion</a>
                 </div>
             </div>
 

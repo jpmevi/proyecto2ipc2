@@ -4,6 +4,7 @@
     Author     : potz
 --%>
 
+<%@page import="Encrypt.Encriptar"%>
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
@@ -34,7 +35,7 @@
         <link rel="stylesheet" href="../css/searchbar.css">
         <title>Modificar Paciente</title>
     </head>
-    <body>
+    <body style="background: url('../img/pacienteindex.jpg') no-repeat top center / cover;">
         <%@include file="header.jsp" %>
         <form>
             <div class="caja">
@@ -46,16 +47,16 @@
                 </section>
                 <table class="containero" style="z-index: 99;">
 
-                    <% 
+                    <%
                         String filtro;
                         if (!(request.getParameter("filtro") == null)) {
                             filtro = request.getParameter("filtro");
 
-                        }else{
-                        filtro="";
+                        } else {
+                            filtro = "";
                         }
                         try {
-                           
+
                             Paciente ex = new Paciente();
                             ResultSet rs = null;
                             rs = ex.buscarPaciente(filtro);
@@ -116,19 +117,30 @@
                     <input type="text" placeholder="Peso" required name="peso" value=<%=request.getParameter("peso")%>>
                 </div>
                 <div class="inputAnimate">
-                    <input type="text" placeholder="Sangre" required name="sangre" value=<%=request.getParameter("sangre")%>>
-                </div>
-                <div class="inputAnimate">
                     <input type="text" placeholder="Correo" required name="correo" value=<%=request.getParameter("correo")%>>
                 </div>
                 <div class="inputAnimate">
-                    <input type="text" placeholder="Password" required name="password" value=<%=request.getParameter("password")%>>
+                    <input type="password" placeholder="Password" required name="password" value=<%=Encriptar.desencriptar(request.getParameter("password"))%>>
                 </div>
                 <h4>Fecha de Nacimiento:</h4>
                 <div class="inputAnimate">
                     <input type="date" id="start" name="fecha"
                            min="1900-01-01" max="2022-12-31" required value=<%=request.getParameter("fecha")%> >
 
+                </div>
+                <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0);">
+                    <select name="sangre">
+
+                        <option value=<%=request.getParameter("sangre")%>><%=request.getParameter("sangre")%></option>
+                        <option value="a+" >A+</option>
+                        <option value="a-" >A-</option>
+                        <option value="b+" >B+</option>
+                        <option value="b-" >B-</option>
+                        <option value="ab+" >AB+</option>
+                        <option value="ab-" >AB-</option>
+                        <option value="o+" >O+</option>
+                        <option value="o-" >O-</option>
+                    </select>
                 </div>
                 <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0);">
                     <select name="sexo">
@@ -154,11 +166,11 @@
                         ps.actualizarPaciente(codigoPaciente, nombre, sexo, localDate, request.getParameter("dpi"), String.valueOf(request.getParameter("telefono")), request.getParameter("peso"), request.getParameter("sangre"), request.getParameter("correo"), request.getParameter("password"));
                         response.sendRedirect("ModificarPaciente.jsp");
                 %><h3>Paciente Modificado con exito</h3><%
-                }
-        }
+                            }
+                        }
 
-    }
-} catch (Exception e) {
+                    }
+                } catch (Exception e) {
                 %><h3>Error al modificar el paciente</h3><%
                     }%>
             </div>

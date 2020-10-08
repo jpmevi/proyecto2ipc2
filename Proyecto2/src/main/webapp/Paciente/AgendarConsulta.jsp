@@ -57,13 +57,14 @@
                                     LocalDate localDate = LocalDate.parse(fecha, formatter);
                                     IntervaloHoras in = new IntervaloHoras();
                                     Cita_Medica cita = new Cita_Medica(localDate, LocalTime.parse(request.getParameter("atributo")), String.valueOf(session.getAttribute("Paciente")), codigoMedico, in.obtenerConsulta(nombreEspecialidad));
+                                   
                                 } catch (Exception e) {
-                                    JOptionPane.showMessageDialog(null, e);
+                                    %><h4 class="err" >Debe verificar antes la hora</h4><%   
                                 }
 
                             }
 
-                            if (!(request.getParameter("disponible") == null) && (request.getParameter("fecha") != "")) {
+                            if (!(request.getParameter("disponible") == null)) {
                                 try {
 
                                     String fecha = request.getParameter("fecha");
@@ -72,7 +73,6 @@
                                     if (listahoras.size() == 0) {
                                         listahoras.add("No existen horas disponibles en esa fecha");
                                     } else {
-                        %> <option value="Seleccione Hora:">Seleccione Hora:</option><%
                             }
                             for (int i = 0; i < listahoras.size(); i++) {
                         %>
@@ -108,12 +108,18 @@
 
 
                 <div class="inputAnimate">
-
+                    
                     <input type="date" id="start" name="fecha"
                            value<%=request.getParameter("fecha")%>
-                           min="2018-01-01" max="2022-12-31">
+                           min="2018-01-01" max="2022-12-31" >
                 </div>
-                <button class="draw" type="submit" name="cita">Crear Cita</button>
+                           <% if (!(request.getParameter("disponible") == null) && !(request.getParameter("fecha").equals(""))) {
+                           %><button class="draw" type="submit" name="cita">Crear Cita</button><%
+                               }%>
+                               <% if (!(request.getParameter("cita") == null)&& !(request.getParameter("atributo").equals("No existen horas disponibles en esa fecha"))) {
+                           %><h3>Cita medica creada con exito<h3><%  
+                               }%>
+                
                 <button class="draw" type="submit" name="disponible">Ver disponbilidad</button>
 
 

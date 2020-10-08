@@ -58,7 +58,7 @@
                             }
                             rs = cm.buscarCitaExamenLaboratoristaDia(atributo, filtro, String.valueOf(session.getAttribute("Laboratorista")));
                             if (!(rs.next())) {
-                    %><h4>No hay ninguna cita medica</h4><%
+                    %><h4>No hay ninguna cita de examen</h4><%
                     } else {
                         rs = cm.buscarCitaExamenLaboratoristaDia(atributo, filtro, String.valueOf(session.getAttribute("Laboratorista")));
 

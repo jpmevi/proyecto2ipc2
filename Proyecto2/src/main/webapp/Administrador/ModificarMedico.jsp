@@ -4,6 +4,7 @@
     Author     : potz
 --%>
 
+<%@page import="Encrypt.Encriptar"%>
 <%@page import="java.time.LocalTime"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
@@ -34,7 +35,7 @@
         <link rel="stylesheet" href="../css/searchbar.css">
         <title>Modificar Medico</title>
     </head>
-    <body>
+    <body style="background: url('../img/pacienteindex.jpg') no-repeat top center / cover;">
         <%@include file="header.jsp" %>
         <form>
             <div class="caja">
@@ -46,16 +47,18 @@
                 </section>
                 <table class="containero" style="z-index: 99;">
 
+
+
                     <% String filtro;
                         if (!(request.getParameter("filtro") == null)) {
                             filtro = request.getParameter("filtro");
 
-                        }else{
-                        filtro="";
+                        } else {
+                            filtro = "";
                         }
-                        
+
                         try {
-                            
+
                             Medico ex = new Medico("");
                             ResultSet rs = null;
                             rs = ex.buscarMedico(filtro);
@@ -120,7 +123,7 @@
                 </div>
 
                 <div class="inputAnimate">
-                    <input type="text" placeholder="Password" required name="password" value=<%=request.getParameter("password")%>>
+                    <input type="password" placeholder="Password" required name="password" value=<%=Encriptar.desencriptar( request.getParameter("password"))%>>
                 </div>
                 <div class="inputAnimate">
                     <input type="time" value="<%=String.valueOf(request.getParameter("horaentrada"))%>" name="horaentrada" required>
@@ -138,19 +141,18 @@
                     if (!(request.getParameter("gen") == null)) {
                         LocalTime horaentrada = LocalTime.parse(request.getParameter("horaentrada"));
                         LocalTime horasalida = LocalTime.parse(request.getParameter("horasalida"));
-                        if(horaentrada.isBefore(horasalida)){
-                        String nombre = request.getParameter("nombre");
-                        String fecha = String.valueOf(request.getParameter("fecha"));
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                        LocalDate localDate = LocalDate.parse(fecha, formatter);
-                        ex.actualizarMedico(codigoMedico, nombre, request.getParameter("colegiado"), request.getParameter("dpi"), request.getParameter("telefono"), request.getParameter("correo"), horaentrada, horasalida, localDate, request.getParameter("password"));
-                        response.sendRedirect("ModificarMedico.jsp");
-                         %><h3>Medico Modificado con exito</h3><%
-                    }else
-                    {
-                     %><h3>No ingreso bien la hora</h3><%
-                    }
-               
+                        if (horaentrada.isBefore(horasalida)) {
+                            String nombre = request.getParameter("nombre");
+                            String fecha = String.valueOf(request.getParameter("fecha"));
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                            LocalDate localDate = LocalDate.parse(fecha, formatter);
+                            ex.actualizarMedico(codigoMedico, nombre, request.getParameter("colegiado"), request.getParameter("dpi"), request.getParameter("telefono"), request.getParameter("correo"), horaentrada, horasalida, localDate, request.getParameter("password"));
+                            response.sendRedirect("ModificarMedico.jsp");
+                %><h3>Medico Modificado con exito</h3><%
+                } else {
+                %><h3>No ingreso bien la hora</h3><%
+                                }
+
                             }
                         }
 

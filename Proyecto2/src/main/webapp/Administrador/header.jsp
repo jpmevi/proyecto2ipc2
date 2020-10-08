@@ -82,6 +82,9 @@
                                     <li class="dropdown-link">
                                         <a href="ModificarPaciente.jsp">Modificar Paciente</a>
                                     </li>
+                                    <li class="dropdown-link">
+                                        <a href="AgregarEspecialidad.jsp">Agregar Especialidad</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>

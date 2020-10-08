@@ -1,18 +1,19 @@
 <%-- 
-    Document   : MedicoIndex
-    Created on : Oct 6, 2020, 1:27:59 AM
+    Document   : Mensaje
+    Created on : Oct 7, 2020, 2:09:23 AM
     Author     : potz
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-   <head>
+<html lang="en">
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../css/pacienteindexstyle.css?2.0">
+    <link rel="stylesheet" href="../css/pacienteindexstyle.css">
     <title>Paciente Index</title>
 </head>
 
@@ -23,7 +24,8 @@
             
             <div class="overlay">
                 <div class="contenedor">
-                    <h1 class="texto" >Bienvenido Laboratorista</h1>
+                    <% String mensaje=String.valueOf(request.getParameter("mensaje"));%>
+                    <h1 class="texto" ><%= mensaje%></h1>
                     </div>
                  </div>
                 

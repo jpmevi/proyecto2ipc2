@@ -65,8 +65,7 @@ public class Login {
         try {
 
             // set all the preparedstatement parameters
-            Conexion conexion = new Conexion();
-            conexion.conexionDB();
+            
             String query = "SELECT* FROM " + entidad;
             PreparedStatement st = Conexion.getConnection().prepareStatement(query);
             st = null;
@@ -78,7 +77,7 @@ public class Login {
                     break;
                 }
             }
-
+             
             st.close();
         } catch (Exception e) {
             // log exception

@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="../css/searchbar.css">
         <title>Generar Orden</title>
     </head>
-    <body>
+    <body style="background: url('../img/pacienteindex.jpg') no-repeat top center / cover;">
         <%@include file="header.jsp" %>
         <form>
             <div class="caja">
@@ -48,7 +48,7 @@
                             ResultSet rs = null;
                             rs = ex.buscarPaciente(filtro);
                             if (!(rs.next())) {
-                    %><h4>No hay ningun Paciente para modificar</h4><%
+                    %><h4>No hay ninguna orden</h4><%
                     } else {
                         rs = ex.buscarPaciente(filtro);
 
