@@ -68,7 +68,7 @@
                             ResultSet rs = null;
                             rs = ex.buscarLaboratorista(filtro);
                             if (!(rs.next())) {
-                    %><h4>No hay ningun Medico para modificar</h4><%
+                    %><h4>No hay ningun Laboratorista para modificar</h4><%
                     } else {
                         rs = ex.buscarLaboratorista(filtro);
 

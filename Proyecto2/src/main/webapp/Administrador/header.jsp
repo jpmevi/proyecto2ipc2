@@ -37,7 +37,7 @@
                             </div>
                         </li>
                         <li class="nav-link" style="--i: .85s">
-                            <a href="#">Uusarios<i class="fas fa-caret-down"></i></a>
+                            <a href="#">Usuarios<i class="fas fa-caret-down"></i></a>
                             <div class="dropdown">
                                 <ul>
                                     <li class="dropdown-link">
@@ -56,16 +56,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav-link" style="--i: 1.1s">
-                            <a href="#">Consulta<i class="fas fa-caret-down"></i></a>
-                            <div class="dropdown">
-                                <ul>
-                                    <li class="dropdown-link">
-                                        <a href="ModificarConsulta.jsp">Modificar Consulta</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+              
                         <li class="nav-link" style="--i: 1.1s">
                             <a href="#">Modificar<i class="fas fa-caret-down"></i></a>
                             <div class="dropdown">
@@ -81,6 +72,9 @@
                                     </li>
                                     <li class="dropdown-link">
                                         <a href="ModificarPaciente.jsp">Modificar Paciente</a>
+                                    </li>
+                                    <li class="dropdown-link">
+                                        <a href="ModificarConsulta.jsp">Modificar Consulta</a>
                                     </li>
                                     <li class="dropdown-link">
                                         <a href="AgregarEspecialidad.jsp">Agregar Especialidad</a>
