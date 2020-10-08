@@ -9,6 +9,7 @@ import DataBase.Conexion;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 /**
  *
@@ -110,5 +111,19 @@ public class Orden_Examen {
         }
 
     }
+    
+    public ResultSet buscarInformeExamenesMas() {
+        try {
+            String query = "SELECT COUNT(*) AS cantidad,M.nombre as medico,E.nombre AS examen FROM ORDEN_EXAMEN OE INNER JOIN MEDICO M ON M.codigo=OE.MEDICO_codigo INNER JOIN EXAMEN E ON E.codigo=OE.EXAMEN_codigo GROUP BY medico,E.nombre ORDER BY cantidad DESC";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+    
 
 }

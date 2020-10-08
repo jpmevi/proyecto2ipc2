@@ -32,7 +32,7 @@
                                         <a href="CrearExamen.jsp">Crear</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="#">Modificar y ver</a>
+                                        <a href="ModificarExamen.jsp">Modificar y ver</a>
                                     </li>
                             </div>
                         </li>
@@ -41,16 +41,16 @@
                             <div class="dropdown">
                                 <ul>
                                     <li class="dropdown-link">
-                                        <a href="#">Crear Paciente</a>
+                                        <a href="CrearPaciente.jsp">Crear Paciente</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="#">Crear Medico</a>
+                                        <a href="CrearMedico.jsp">Crear Medico</a>
                                     </li>
                                     <li class="dropdown-link">
                                         <a href="CrearLaboratorista.jsp">Crear Laboratorista<i class="fas fa-caret-down"></i></a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="#">Crear Administrador</a>
+                                        <a href="CrearAdministrador.jsp">Crear Administrador</a>
                                     </li>
                                     <div class="arrow"></div>
                                 </ul>
@@ -61,7 +61,51 @@
                             <div class="dropdown">
                                 <ul>
                                     <li class="dropdown-link">
-                                        <a href="BuscarMedico.jsp">Modificar Consulta</a>
+                                        <a href="ModificarConsulta.jsp">Modificar Consulta</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-link" style="--i: 1.1s">
+                            <a href="#">Modificar<i class="fas fa-caret-down"></i></a>
+                            <div class="dropdown">
+                                <ul>
+                                    <li class="dropdown-link">
+                                        <a href="ModificarAdministrador.jsp">Modificar Administrador</a>
+                                    </li>
+                                    <li class="dropdown-link">
+                                        <a href="ModificarLaboratorista.jsp">Modificar Laboratorista</a>
+                                    </li>
+                                    <li class="dropdown-link">
+                                        <a href="ModificarMedico.jsp">Modificar Medico</a>
+                                    </li>
+                                    <li class="dropdown-link">
+                                        <a href="ModificarPaciente.jsp">Modificar Paciente</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-link" style="--i: 1.1s">
+                            <a href="#">Reportes<i class="fas fa-caret-down"></i></a>
+                            <div class="dropdown">
+                                <ul>
+                                    <li class="dropdown-link">
+                                        <a href="MedicosMasInformes.jsp">Medicos con mas informes</a>
+                                    </li>
+                                    <li class="dropdown-link">
+                                        <a href="IngresosMedico.jsp">Medicos mas Ingresos</a>
+                                    </li>
+                                    <li class="dropdown-link">
+                                        <a href="MedicosMenosCitas.jsp">Medicos menos Citas</a>
+                                    </li>
+                                    <li class="dropdown-link">
+                                        <a href="ExamenesMasDemandados.jsp">Examenes mas demandados</a>
+                                    </li>
+                                    <li class="dropdown-link">
+                                        <a href="MedicosMasExamenes.jsp">Medicos con mas examenes</a>
+                                    </li>
+                                     <li class="dropdown-link">
+                                         <a href="IngresosPaciente.jsp">Ingresos de un paciente</a>
                                     </li>
                                 </ul>
                             </div>
@@ -70,7 +114,7 @@
                 </div>
 
                 <div class="log-sign" style="--i: 1.8s">
-                    <a href="#" class="btn solid">Cerrar Sesion</a>
+                    <a href="../Login.jsp" class="btn solid">Cerrar Sesion</a>
                 </div>
             </div>
 

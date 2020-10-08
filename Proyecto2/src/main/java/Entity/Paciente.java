@@ -46,9 +46,10 @@ public class Paciente {
         insertarPaciente();
     }
 
-    public Paciente(){
-        
+    public Paciente() {
+
     }
+
     public String getCodigo() {
         return codigo;
     }
@@ -129,7 +130,7 @@ public class Paciente {
         this.password = password;
     }
 
-    public void insertarPaciente()  {
+    public void insertarPaciente() {
 
         String query = "INSERT INTO PACIENTE ("
                 + " codigo,"
@@ -155,7 +156,7 @@ public class Paciente {
             st.setString(7, getPeso());
             st.setString(8, getSangre());
             st.setString(9, getCorreo());
-            st.setString(10,Encriptar.encriptar( getPassword()));
+            st.setString(10, Encriptar.encriptar(getPassword()));
 
             // execute the preparedstatement insert
             st.execute();
@@ -165,10 +166,10 @@ public class Paciente {
         }
 
     }
-    
+
     public ResultSet buscarPaciente(String codigo) {
         try {
-            String query = "SELECT* FROM PACIENTE WHERE codigo LIKE '%"+codigo+"%'";
+            String query = "SELECT* FROM PACIENTE WHERE codigo LIKE '%" + codigo + "%'";
             PreparedStatement st = Conexion.getConnection().prepareStatement(query);
             ResultSet rs = st.executeQuery();
             return rs;
@@ -178,17 +179,18 @@ public class Paciente {
         }
 
     }
-     public void actualizarPaciente(String codigo, String nombre, String sexo, LocalDate fecha_nacimiento, String dpi, String telefono, String peso, String sangre, String correo, String password) throws SQLException{
-          
+
+    public void actualizarPaciente(String codigo, String nombre, String sexo, LocalDate fecha_nacimiento, String dpi, String telefono, String peso, String sangre, String correo, String password) throws SQLException {
+
         String query = "UPDATE PACIENTE SET nombre=?, sexo=?, fecha_nacimiento=?, dpi=?, telefono=?, peso=?, sangre=?, correo=?, password=? WHERE codigo=?";
 
-        try { 
+        try {
             //Se establecen los parametros del PreparedStament
 
             PreparedStatement st = Conexion.getConnection().prepareStatement(query);
-            
-            st.setString(10,codigo);
-            st.setString(1,nombre);
+
+            st.setString(10, codigo);
+            st.setString(1, nombre);
             st.setString(2, sexo);
             st.setDate(3, Date.valueOf(fecha_nacimiento));
             st.setString(4, dpi);
@@ -201,7 +203,25 @@ public class Paciente {
             st.executeUpdate();
             st.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,e);
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+    }
+
+    public ResultSet buscarPacienteIngresos(LocalDate fechainicio, LocalDate fechafinal) {
+        try {
+            String query = "SELECT P.nombre AS paciente,SUM(C.costo+E.costo) AS ingresos FROM INFORME_CONSULTA IC "
+                    + "INNER JOIN CONSULTA C ON C.codigo=IC.CONSULTA_codigo INNER JOIN PACIENTE P ON IC.PACIENTE_codigo=P.codigo "
+                    + "INNER JOIN INFORME_EXAMEN IL ON IL.PACIENTE_codigo=P.codigo INNER JOIN EXAMEN E "
+                    + "ON IL.EXAMEN_codigo=E.codigo WHERE IC.fecha "
+                    + "BETWEEN '" + fechainicio + "' AND '" + fechafinal + "' "
+                    + "GROUP BY paciente ORDER BY ingresos";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
         }
 
     }

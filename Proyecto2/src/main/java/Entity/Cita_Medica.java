@@ -170,5 +170,20 @@ public class Cita_Medica {
          }
          
      }
-    
+ 
+     
+     
+     
+     public ResultSet buscarMedicoMenoresCitas(LocalDate fechainicio, LocalDate fechafinal) {
+        try {
+            String query = "SELECT COUNT(CM.codigo) AS citas,M.nombre medico FROM MEDICO M LEFT JOIN CITA_MEDICA CM ON M.codigo=CM.MEDICO_codigo WHERE CM.fecha BETWEEN '"+fechainicio+"' AND '"+fechafinal+"' GROUP BY medico ORDER BY citas ASC LIMIT 5";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
 }

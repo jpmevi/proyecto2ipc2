@@ -165,10 +165,39 @@ public class Informe_Consulta {
 
     }
      
-      public ResultSet buscarInformeMedicoIntervalo(String codigo,String medico, LocalDate fechainicio, LocalDate fechafinal) {
+      public ResultSet buscarInformeMedicoIntervalo(String codigo, String medico, LocalDate fechainicio, LocalDate fechafinal) {
         try {
             String query = "SELECT IC.*,M.nombre AS medico FROM INFORME_CONSULTA IC INNER JOIN MEDICO M ON IC.MEDICO_codigo=M.codigo WHERE IC.PACIENTE_codigo='"+codigo+"' && IC.MEDICO_codigo='"+medico+"' && IC.fecha BETWEEN '"+fechainicio+"' AND '"+fechafinal+"'";
-            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);    
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+      
+      
+      public ResultSet buscarInforme10Medicos(LocalDate fechainicio, LocalDate fechafinal) {
+        try {
+            String query = "SELECT COUNT(*) AS cantidad,M.nombre AS medico FROM INFORME_CONSULTA IC INNER JOIN MEDICO M ON IC.MEDICO_codigo=M.codigo WHERE fecha BETWEEN '"+fechainicio+"' AND '"+fechafinal+"' GROUP BY medico ORDER BY cantidad DESC LIMIT 10";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);    
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+      
+      
+      public ResultSet buscarMedicoMasIngresos( LocalDate fechainicio, LocalDate fechafinal) {
+        try {
+            
+            String query = "SELECT M.nombre AS medico,SUM(C.costo) AS ingresos FROM INFORME_CONSULTA IC INNER JOIN CONSULTA C ON C.codigo=IC.CONSULTA_codigo INNER JOIN MEDICO M ON IC.MEDICO_codigo=M.codigo WHERE IC.fecha BETWEEN '"+fechainicio+"' AND '"+fechafinal+"' GROUP BY medico ORDER BY ingresos";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);    
             ResultSet rs = st.executeQuery();
             return rs;
 

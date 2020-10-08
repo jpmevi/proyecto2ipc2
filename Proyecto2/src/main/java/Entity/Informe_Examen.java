@@ -194,4 +194,19 @@ public Informe_Examen(){
         }
 
     }
+    
+    
+    public ResultSet buscarInformeExamenesMas(LocalDate fechainicio, LocalDate fechafinal) {
+        try {
+            String query = "SELECT COUNT(*) AS cantidad,E.nombre AS examen FROM INFORME_EXAMEN IE INNER JOIN EXAMEN E ON IE.EXAMEN_codigo=E.codigo WHERE IE.fecha BETWEEN '"+fechainicio+"' AND '"+fechafinal+"' GROUP BY examen ORDER BY cantidad DESC";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+    
 }
