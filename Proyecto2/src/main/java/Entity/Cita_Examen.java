@@ -146,4 +146,31 @@ public Cita_Examen() {
          
      }
 
+     
+     public ResultSet buscarCitaExamenLaboratorista(String atributo, String valor, String codigo) {
+        try {
+            String query = "SELECT CE.*,E.nombre AS examen,P.nombre AS paciente,P.codigo AS codpa,E.codigo AS codigoexa FROM CITA_EXAMEN CE INNER JOIN EXAMEN E ON CE.EXAMEN_codigo=E.codigo INNER JOIN PACIENTE P ON CE.PACIENTE_codigo=P.codigo WHERE CE.LABORATORISTA_codigo='"+ codigo+"' && CE."+atributo+" LIKE '%" + valor + "%'";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+     
+     public ResultSet buscarCitaExamenLaboratoristaDia(String atributo, String valor, String codigo) {
+        try {
+            String query = "SELECT CE.*,E.nombre AS examen,P.nombre AS paciente,P.codigo AS codpa,E.codigo AS codigoexa FROM CITA_EXAMEN CE INNER JOIN EXAMEN E ON CE.EXAMEN_codigo=E.codigo INNER JOIN PACIENTE P ON CE.PACIENTE_codigo=P.codigo WHERE CE.LABORATORISTA_codigo='"+ codigo+"' && CE."+atributo+" LIKE '%" + valor + "%' && CE.fecha='"+LocalDate.now()+"'";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+     
 }

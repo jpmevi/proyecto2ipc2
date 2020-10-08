@@ -1,37 +1,17 @@
 <%-- 
-    Document   : GenerarInforme
-    Created on : Oct 6, 2020, 1:35:09 AM
+    Document   : SubirResultados
+    Created on : Oct 7, 2020, 5:18:54 PM
     Author     : potz
 --%>
 
 <%@page import="javax.swing.JOptionPane"%>
-<%@page import="java.time.LocalTime"%>
+<%@page import="Entity.Informe_Examen"%>
 <%@page import="java.time.LocalDate"%>
-<%@page import="Entity.Informe_Consulta"%>
+<%@page import="java.time.LocalTime"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page import="Entity.Cita_Medica"%>
+<%@page import="Entity.Cita_Examen"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<%String paciente = request.getParameter("paciente");
-    String consulta = request.getParameter("consulta");
-    String codigo = request.getParameter("codigo");
-    try {
-        if (!paciente.equals("")) {
-            session.setAttribute("Pac", request.getParameter("paciente"));
-        }
-        if (!consulta.equals("")) {
-            session.setAttribute("Consu", request.getParameter("consulta"));
-        }
-        if (!codigo.equals("")) {
-            session.setAttribute("CM", request.getParameter("codigo"));
-        }
 
-    } catch (Exception e) {
-    }
-    String codigoPaciennte = String.valueOf(session.getAttribute("Pac"));
-    String codigoConsulta = String.valueOf(session.getAttribute("Consu"));
-    String codigoCM = String.valueOf(session.getAttribute("CM"));
-%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -41,13 +21,13 @@
         <link rel="stylesheet" href="../css/select.css">
         <link rel="stylesheet" href="../css/button.css">
         <link rel="stylesheet" href="../css/searchbar.css">
-        <title>Subir Resultados</title>
+        <title>Generar Informe</title>
     </head>
     <body style="background: url('../img/pacienteindex.jpg') no-repeat top center / cover;">
-        <%@include file="header.jsp" %>
+        <%@include file="header.jsp"%>
         <form>
             <div class="caja">
-                <% Cita_Medica cm = new Cita_Medica();%>
+                <% Cita_Examen cm = new Cita_Examen();%>
 
 
                 <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0);">
@@ -69,7 +49,6 @@
                     <%  String filtro;
                         if (!(request.getParameter("filtro") == null)) {
                             filtro = request.getParameter("filtro");
-
                         } else {
                             filtro = "";
                         }
@@ -82,18 +61,18 @@
                             } else {
                                 atributo = "codigo";
                             }
-                            rs = cm.buscarCitaMedicaMedico(atributo, filtro, String.valueOf(session.getAttribute("Medico")));
+                            rs = cm.buscarCitaExamenLaboratorista(atributo, filtro, String.valueOf(session.getAttribute("Laboratorista")));
                             if (!(rs.next())) {
                     %><h4>No hay ninguna cita medica</h4><%
                     } else {
-                        rs = cm.buscarCitaMedicaMedico(atributo, filtro, String.valueOf(session.getAttribute("Medico")));
+                        rs = cm.buscarCitaExamenLaboratorista(atributo, filtro, String.valueOf(session.getAttribute("Laboratorista")));
 
                     %> <tr>
                         <th><h1>Codigo</h1></th>
                         <th><h1>Fecha</h1></th>
                         <th><h1>Hora</h1></th>
+                        <th><h1>Examen</h1></th>
                         <th><h1>Paciente</h1></th>
-                        <th><h1>Especialidad</h1></th>
                         <th><h1>Generar Informe</h1></th>
 
                     </tr>
@@ -103,10 +82,10 @@
                         <td><h2><%= String.valueOf(rs.getObject("codigo"))%></h2></td>
                         <td><h2><%= String.valueOf(rs.getObject("fecha"))%></h2></td>
                         <td><h2><%= String.valueOf(rs.getObject("hora"))%></h2></td>
+                        <td><h2><%= String.valueOf(rs.getObject("examen"))%></h2></td>
                         <td><h2><%= String.valueOf(rs.getObject("paciente"))%></h2></td>
-                        <td><h2><%= String.valueOf(rs.getObject("ESPECIALIDAD_nombre"))%></h2></td>
                         <td>
-                            <h2><a href="GenerarInforme.jsp?codigo=<%=rs.getString("codigo")%>&paciente=<%=rs.getString("codp")%>&consulta=<%=rs.getString("consulta")%>">Generar Informe</a></h2>
+                            <h2><a href="ConfirmarInforme.jsp?codigo=<%=rs.getString("codigo")%>&paciente=<%=rs.getString("codpa")%>&examen=<%=rs.getString("codigoexa")%>">Generar Informe</a></h2>
                         </td>
                     </tr>
 
@@ -122,23 +101,11 @@
                     }%>
 
 
-                <% if (!(request.getParameter("codigo") == null)) {
+                
+
+                       
 
 
-                %>
-                <label ><%=LocalTime.of(LocalTime.now().getHour(), LocalTime.now().getMinute())%></label>
-                <label ><%=LocalDate.now()%></label>
-                <textarea id="subject" name="descripcion" placeholder="Descripcion.." required ></textarea>
-                <button class="draw" type="submit" name="gen">Generar</button>
-                <%                  }
-                    if (!(request.getParameter("gen") == null)) {
-                        int consultanum = Integer.valueOf(codigoConsulta);
-                        Informe_Consulta ic = new Informe_Consulta(request.getParameter("descripcion"), LocalDate.now(), LocalTime.now(), consultanum, codigoPaciennte, String.valueOf(session.getAttribute("Medico")));
-                         cm.eliminarCita(codigoCM);
-                        response.sendRedirect("GenerarInforme.jsp");
-
-                %><h3>Informe generado con exito</h3><%                    }
-                %>
             </div>
 
         </form>
@@ -146,4 +113,3 @@
         <script type="text/javascript" src="../js/select.js"></script>
     </body>
 </html>
-

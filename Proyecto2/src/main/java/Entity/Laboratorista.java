@@ -150,7 +150,7 @@ public class Laboratorista {
             st.setString(5, getTelefono());
             st.setString(6, getCorreo());
             st.setDate(7, Date.valueOf(getFecha_inicio()));
-            st.setString(8, getPassword());
+            st.setString(8,Encriptar.encriptar( getPassword()));
             st.setString(9, getEXAMEN_codigo());
 
             // execute the preparedstatement insert

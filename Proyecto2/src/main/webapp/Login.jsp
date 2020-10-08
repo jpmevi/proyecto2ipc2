@@ -81,6 +81,11 @@
                                                 response.sendRedirect("Medico/MedicoIndex.jsp");
                                                 break;
                                             }
+                                            case "LABORATORISTA": {
+                                                session.setAttribute("Laboratorista", request.getParameter("user"));
+                                                response.sendRedirect("Laboratorista/LaboratoristaIndex.jsp");
+                                                break;
+                                            }
                                         }
                                     } else {
                         %><h4 class="err" >Ingreso mal las credenciales</h4><%

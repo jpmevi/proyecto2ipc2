@@ -23,7 +23,7 @@
         <link rel="stylesheet" href="../css/select.css">
         <link rel="stylesheet" href="../css/button.css">
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,500,700'>
-        <title>Crear Paciente</title>
+        <title>Crear Laboratorista</title>
     </head>
     <body>
         <%@include file="header.jsp" %>
@@ -99,7 +99,6 @@
                 <%
                     if (!(request.getParameter("gen") == null)) {
                         try {
-                        JOptionPane.showMessageDialog(null, "si");
                             String fecha = String.valueOf(request.getParameter("fecha"));
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                             LocalDate localDate = LocalDate.parse(fecha, formatter);

@@ -19,7 +19,6 @@ import java.time.LocalTime;
  */
 public class Informe_Examen {
 
-    private String codigo;
     private String descripcion;
     private LocalDate fecha;
     private LocalTime hora;
@@ -27,8 +26,8 @@ public class Informe_Examen {
     private String PACIENTE_codigo;
     private String LABORATORISTA_codigo;
 
-    public Informe_Examen(String codigo, String descripcion, LocalDate fecha, LocalTime hora, String EXAMEN_codigo, String PACIENTE_codigo, String LABORATORISTA_codigo) {
-        this.codigo = codigo;
+    public Informe_Examen( String descripcion, LocalDate fecha, LocalTime hora, String EXAMEN_codigo, String PACIENTE_codigo, String LABORATORISTA_codigo) {
+
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.hora = hora;
@@ -40,13 +39,7 @@ public class Informe_Examen {
 public Informe_Examen(){
     
 }
-    public String getCodigo() {
-        return codigo;
-    }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
 
     public String getDescripcion() {
         return descripcion;
@@ -110,7 +103,7 @@ public Informe_Examen(){
         try {
             // set all the preparedstatement parameters
             PreparedStatement st = Conexion.getConnection().prepareStatement(query);
-            st.setString(1, getCodigo());
+            st.setInt(1, 0);
             st.setString(2, getDescripcion());
             st.setDate(3, Date.valueOf(getFecha()));
             st.setTime(4, Time.valueOf(getHora()));
@@ -129,6 +122,43 @@ public Informe_Examen(){
     public ResultSet buscarInforme(String codigo) {
         try {
             String query = "SELECT* FROM INFORME_EXAMEN WHERE PACIENTE_codigo='"+codigo+"'";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+    public ResultSet buscarInformeLab(String codigo, String filtro) {
+        try {
+            String query = "SELECT* FROM INFORME_EXAMEN WHERE LABORATORISTA_codigo='"+codigo+"' && fecha='"+LocalDate.now()+"' && codigo LIKE '%"+filtro+"%'";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+    public ResultSet buscarInformeUtilizacion(LocalDate fechainicio, LocalDate fechafinal, String codigo) {
+        try {
+            String query = "SELECT COUNT(*) AS cantidad,fecha FROM INFORME_EXAMEN WHERE LABORATORISTA_codigo='"+codigo+"' && fecha BETWEEN '"+fechainicio+"' AND '"+fechafinal+"' GROUP BY fecha;";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+    
+    public ResultSet buscarInforme10fechas(String codigo) {
+        try {
+            String query = "SELECT COUNT(*) AS cantidad,fecha FROM INFORME_EXAMEN WHERE LABORATORISTA_codigo='"+codigo+"' GROUP BY fecha LIMIT 10";
             PreparedStatement st = Conexion.getConnection().prepareStatement(query);
             ResultSet rs = st.executeQuery();
             return rs;

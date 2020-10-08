@@ -47,7 +47,7 @@
                                         <a href="#">Crear Medico</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="#">Crear Laboratorista<i class="fas fa-caret-down"></i></a>
+                                        <a href="CrearLaboratorista.jsp">Crear Laboratorista<i class="fas fa-caret-down"></i></a>
                                     </li>
                                     <li class="dropdown-link">
                                         <a href="#">Crear Administrador</a>
