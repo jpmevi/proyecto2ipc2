@@ -27,66 +27,27 @@
                             <a href="PacienteIndex.jsp">Home</a>
                         </li>
                         <li class="nav-link" style="--i: .6s">
-                            <a href="#">Agendar<i class="fas fa-caret-down"></i></a>
+                            <a href="#">Consulta<i class="fas fa-caret-down"></i></a>
                             <div class="dropdown">
                                 <ul>
                                     <li class="dropdown-link">
-                                        <a href="#">Consulta</a>
+                                        <a href="BuscarMedico.jsp">Programar una consulta</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="#">Examen</a>
+                                        <a href="VerCitaMedica.jsp">Ver citas programadas</a>
                                     </li>
                             </div>
                         </li>
                         <li class="nav-link" style="--i: .85s">
-                            <a href="#">Citas<i class="fas fa-caret-down"></i></a>
+                            <a href="#">Examenes<i class="fas fa-caret-down"></i></a>
                             <div class="dropdown">
                                 <ul>
                                     <li class="dropdown-link">
-                                        <a href="#">Consulta</a>
+                                        <a href="BuscarLab.jsp">Programar examen</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="BuscarLab.jsp">Examen</a>
+                                        <a href="VerCitaExamen.jsp">Ver examenes programados</a>
                                     </li>
-                                    <li class="dropdown-link">
-                                        <a href="#">Ver cita<i class="fas fa-caret-down"></i></a>
-                                        <div class="dropdown second">
-                                            <ul>
-                                                <li class="dropdown-link">
-                                                    <a href="VerCitaMedica.jsp">Medica</a>
-                                                </li>
-                                                <li class="dropdown-link">
-                                                    <a href="VerCitaExamen.jsp">Examen</a>
-                                                </li>
-                                                <li class="dropdown-link">
-                                                    <a href="#">Link 3</a>
-                                                </li>
-                                                <li class="dropdown-link">
-                                                    <a href="#">Citas programadas<i class="fas fa-caret-down"></i></a>
-                                                    <div class="dropdown second">
-                                                        <ul>
-                                                            <li class="dropdown-link">
-                                                                <a href="#">Consulta</a>
-                                                            </li>
-                                                            <li class="dropdown-link">
-                                                                <a href="#">Examen</a>
-                                                            </li>
-                                                            <li class="dropdown-link">
-                                                                <a href="#">Link 3</a>
-                                                            </li>
-                                                            <div class="arrow"></div>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                                <div class="arrow"></div>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li class="dropdown-link">
-                                        <a href="#">Informacion</a>
-                                        
-                                    </li>
-                                    <div class="arrow"></div>
                                 </ul>
                             </div>
                         </li>
@@ -95,49 +56,8 @@
                             <div class="dropdown">
                                 <ul>
                                     <li class="dropdown-link">
-                                        <a href="BuscarMedico.jsp">Buscar medico</a>
-                                    </li>
-                                    <li class="dropdown-link">
                                         <a href="VerOrdenExamen.jsp">Ver Ordenes</a>
-                                    </li>
-                                    <li class="dropdown-link">
-                                        <a href="#">Link 3<i class="fas fa-caret-down"></i></a>
-                                        <div class="dropdown second">
-                                            <ul>
-                                                <li class="dropdown-link">
-                                                    <a href="#">Link 1</a>
-                                                </li>
-                                                <li class="dropdown-link">
-                                                    <a href="#">Link 2</a>
-                                                </li>
-                                                <li class="dropdown-link">
-                                                    <a href="#">Link 3</a>
-                                                </li>
-                                                <li class="dropdown-link">
-                                                    <a href="#">More<i class="fas fa-caret-down"></i></a>
-                                                    <div class="dropdown second">
-                                                        <ul>
-                                                            <li class="dropdown-link">
-                                                                <a href="#">Link 1</a>
-                                                            </li>
-                                                            <li class="dropdown-link">
-                                                                <a href="#">Link 2</a>
-                                                            </li>
-                                                            <li class="dropdown-link">
-                                                                <a href="#">Link 3</a>
-                                                            </li>
-                                                            <div class="arrow"></div>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                                <div class="arrow"></div>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li class="dropdown-link">
-                                        <a href="#">Link 4</a>
-                                    </li>
-                                    <div class="arrow"></div>
+                                    </li>                        
                                 </ul>
                             </div>
                         </li>
@@ -146,12 +66,20 @@
                             <div class="dropdown">
                                                         <ul>
                                                             <li class="dropdown-link">
-                                                                <a href="#">Examenes Realizados</a>
+                                                                <a href="HistorialMedico.jsp">Historial Medico</a>
                                                             </li>
                                                             <li class="dropdown-link">
-                                                                <a href="#">Consultas Realizadas</a>
+                                                                <a href="UltimosExamenes.jsp">Ultimos 5 Examenes</a>
                                                             </li>
-                                                            
+                                                            <li class="dropdown-link">
+                                                                <a href="ExamenesPorTipo.jsp">Examenes por tipo</a>
+                                                            </li>
+                                                            <li class="dropdown-link">
+                                                                <a href="UltimasConsultas.jsp">Ultimas 5 consultas</a>
+                                                            </li>
+                                                            <li class="dropdown-link">
+                                                                <a href="ConsultaIntervalo.jsp">Consultas con un medico</a>
+                                                            </li>
                                                             <div class="arrow"></div>
                                                         </ul>
                                                     </div>

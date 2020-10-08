@@ -168,4 +168,30 @@ public Informe_Examen(){
         }
 
     }
+    
+    public ResultSet buscarInformeUltimos5(String codigo) {
+        try {
+            String query = "SELECT IE.*,E.nombre AS examen FROM INFORME_EXAMEN IE INNER JOIN EXAMEN E ON IE.EXAMEN_codigo=E.codigo WHERE PACIENTE_codigo='"+codigo+"' ORDER BY fecha DESC LIMIT 5";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+    
+    public ResultSet buscarInformeIntervalo(String codigo, String examen, LocalDate fechainicio, LocalDate fechafinal) {
+        try {
+            String query = "SELECT I.*,E.nombre AS examen FROM INFORME_EXAMEN I INNER JOIN EXAMEN E ON E.codigo=I.EXAMEN_codigo WHERE I.PACIENTE_codigo='"+codigo+"' && E.codigo='"+examen+"' && I.fecha BETWEEN '"+fechainicio+"' AND '"+fechafinal+"'";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
 }

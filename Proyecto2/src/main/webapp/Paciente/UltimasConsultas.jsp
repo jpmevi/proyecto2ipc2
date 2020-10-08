@@ -1,11 +1,11 @@
 <%-- 
-    Document   : VerOrdenExamen
-    Created on : Oct 7, 2020, 2:14:45 AM
+    Document   : UltimasConsultas
+    Created on : Oct 8, 2020, 12:24:03 AM
     Author     : potz
 --%>
 
 <%@page import="java.sql.ResultSet"%>
-<%@page import="Entity.Orden_Examen"%>
+<%@page import="Entity.Informe_Consulta"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,36 +17,18 @@
         <link rel="stylesheet" href="../css/select.css">
         <link rel="stylesheet" href="../css/button.css">
         <link rel="stylesheet" href="../css/searchbar.css">
-        <title>Ver orden</title>
+        <title>Ultimas consultas</title>
     </head>
     <body style="background: url('../img/pacienteindex.jpg') no-repeat top center / cover;">
         <%@include file="header.jsp" %>
         <form>
             <div class="caja">
-                <% Orden_Examen cm = new Orden_Examen();
-                    %>
-
-
-                
-                <section class="webdesigntuts-workshop" >
-                    <div>
-                        <input type="search" placeholder="Filtrar por codigo?" name="filtro">		    	
-                        <button>Filtrar</button>
-                    </div>
-                </section>
+                <% Informe_Consulta ie = new Informe_Consulta();
+                   %>
                 <table class="containero" style="z-index: 99;">
 
-                    <%            String filtro;
-                        if (!(request.getParameter("filtro") == null)) {
-                            filtro = request.getParameter("filtro");
-
-                        }else{
-                        filtro="";
-                        }
-                      
-                        try {
-                            
-
+                    <%            
+                        try {                            
                             ResultSet rs = null;
                             String atributo = "";
                             if (!(request.getParameter("atributo") == null)) {
@@ -54,18 +36,19 @@
                             } else {
                                 atributo = "codigo";
                             }
-                            rs = cm.buscarOrden( String.valueOf(session.getAttribute("Paciente")),filtro);
+                            rs = ie.buscarInformeUltimos5(String.valueOf(session.getAttribute("Paciente")));
                             if (!(rs.next())) {
-                    %><h4>No hay ninguna orden de examen</h4><%
+                    %><h4>No hay ninguna consulta</h4><%
                     } else {
-                        rs = cm.buscarOrden( String.valueOf(session.getAttribute("Paciente")),filtro);
+                        rs = ie.buscarInformeUltimos5(String.valueOf(session.getAttribute("Paciente")));
 
                     %> <tr>
                         <th><h1>Codigo</h1></th>
                         <th><h1>Descripcion</h1></th>
+                        <th><h1>Fecha</h1></th>
+                        <th><h1>Hora</h1></th>
+                        <th><h1>Especialidad</h1></th>
                         <th><h1>Medico</h1></th>
-                        <th><h1>Examen</h1></th>
-                        <th><h1>Ver Pdf</h1></th>
 
                     </tr>
                     <%                        while (rs.next()) {
@@ -74,11 +57,11 @@
                     <tr>
                         <td><h2><%= String.valueOf(rs.getObject("codigo"))%></h2></td>
                         <td><h2><%= String.valueOf(rs.getObject("descripcion"))%></h2></td>
+                        <td><h2><%= String.valueOf(rs.getObject("fecha"))%></h2></td>
+                        <td><h2><%= String.valueOf(rs.getObject("hora"))%></h2></td>
+                        <td><h2><%= String.valueOf(rs.getObject("ESPECIALIDAD_nombre"))%></h2></td>
                         <td><h2><%= String.valueOf(rs.getObject("MEDICO_codigo"))%></h2></td>
-                        <td><h2><%= String.valueOf(rs.getObject("examen"))%></h2></td>
-                        <td>
-                            <h2><a href="../DescargarArchivo?orden=<%=rs.getString("codigo")%>&descripcion=<%=rs.getString("descripcion")%>&medico=<%=rs.getString("MEDICO_codigo")%>&examen=<%=rs.getString("examen")%>">Ver pdf</a></h2>
-                        </td>
+
                     </tr>
 
                     <%
@@ -89,7 +72,7 @@
 
                     }
                 } catch (Exception e) {
-                %><h3>Error con la orden</h3><%
+                %><h3>Error con la cita</h3><%
                     }%>
             </div>
 

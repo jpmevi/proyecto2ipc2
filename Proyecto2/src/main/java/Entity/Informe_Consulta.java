@@ -150,4 +150,31 @@ public class Informe_Consulta {
         }
 
     }
+    
+    
+     public ResultSet buscarInformeUltimos5(String codigo) {
+        try {
+            String query = "SELECT IC.*,C.ESPECIALIDAD_nombre FROM INFORME_CONSULTA IC INNER JOIN CONSULTA C ON IC.CONSULTA_codigo=C.codigo WHERE IC.PACIENTE_codigo='"+codigo+"' ORDER BY fecha DESC LIMIT 5";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+     
+      public ResultSet buscarInformeMedicoIntervalo(String codigo,String medico, LocalDate fechainicio, LocalDate fechafinal) {
+        try {
+            String query = "SELECT IC.*,M.nombre AS medico FROM INFORME_CONSULTA IC INNER JOIN MEDICO M ON IC.MEDICO_codigo=M.codigo WHERE IC.PACIENTE_codigo='"+codigo+"' && IC.MEDICO_codigo='"+medico+"' && IC.fecha BETWEEN '"+fechainicio+"' AND '"+fechafinal+"'";
+            PreparedStatement st = Conexion.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
 }

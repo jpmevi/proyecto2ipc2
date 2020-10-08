@@ -6,8 +6,14 @@
 package Servlet;
 
 import Entity.Archivo_Orden;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -65,22 +71,46 @@ public class DescargarArchivo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
         String codigo = request.getParameter("orden");
-        Archivo_Orden Ao = new Archivo_Orden();
-        ResultSet rs = Ao.buscarOrden(codigo);
+        String descripcion = request.getParameter("descripcion");
+        String medico = request.getParameter("medico");
+        String examen = request.getParameter("examen");
+        //Crea una carpeta para guardar los reportes
+        File directorio = new File(getServletContext().getRealPath(File.separator) + "/OrdenesPaciente");
+        directorio.mkdirs();
+        //Establecemos el path
+        String path = getServletContext().getRealPath(File.separator) + "/OrdenesPaciente/ordenes" + codigo + medico + ".pdf";
+        PdfWriter writer = new PdfWriter(path);
+        PdfDocument pdfDoc = new PdfDocument(writer);
+        Document document = new Document(pdfDoc);
+        String orden_m = "Codigo de la orden del examen : " + codigo;
+        String descripcion2 = "Descripcion de la orden : " + descripcion;
+        String medico2 = "Medico de la orden: " + medico;
+        String examen2 = "Codigo del examen de la orden: " + examen;
+        Paragraph para1 = new Paragraph(orden_m);
+        Paragraph para2 = new Paragraph(descripcion2);
+        Paragraph para3 = new Paragraph(medico2);
+        Paragraph para4 = new Paragraph(examen2);
+        document.add(para1);
+        document.add(para2);
+        document.add(para3);
+        document.add(para4);
+        document.close();
+        //Creamos el archivo
+        String pdfFileName = "/OrdenesPaciente/ordenes" + codigo + medico + ".pdf";
+        File pdfFile = new File(path);
+        response.setContentType("application/pdf");
+        response.addHeader("Content-Disposition", "attachment; filename=" + pdfFileName);
+        response.setContentLength((int) pdfFile.length());
+        FileInputStream fileInputStream = new FileInputStream(pdfFile);
+        OutputStream responseOutputStream = response.getOutputStream();
+        int bytes;
+        while ((bytes = fileInputStream.read()) != -1) {
+                responseOutputStream.write(bytes);
+            }
+    
 
-        
-        try{
-            if(rs.next()){
-            JOptionPane.showMessageDialog(null, rs.getBlob("archivo"));
-        }else{
-            JOptionPane.showMessageDialog(null, rs.getBlob("archivo"));
-        }
-            
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null,e);
-        }
+
     }
 
     /**
